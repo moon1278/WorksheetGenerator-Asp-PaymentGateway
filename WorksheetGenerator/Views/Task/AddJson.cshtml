@@ -1,0 +1,90 @@
+﻿@model WorksheetGenerator.Models.JSON.CreateJSONClassViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    
+<div class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+			</div>
+		</div>
+		<!-- /.container-fluid -->
+	</section>
+	<!-- Main content -->
+	<section class="content">
+		<div class="row">
+			<!-- Worksheet Details -->
+			<div id="Main-Card" class="col-md-12">
+				<div class="card">
+					<div class="card-body">
+						@using System.Collections
+
+
+           
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+
+
+
+
+@section Scripts
+{
+    <script>
+        function addRow2() {
+          // Get a reference to the table
+          const table = document.querySelector('table');
+
+          // Create a new row
+          const newRow = document.createElement('tr');
+
+          // Create the three cells for the new row
+          const typeCell = document.createElement('td');
+          const nameCell = document.createElement('td');
+          const arrayCell = document.createElement('td');
+
+          // Create the select element for the type cell
+          const typeSelect = document.createElement('select');
+          typeSelect.innerHTML = `
+            <option>string</option>
+            <option>int</option>
+            <option>byte</option>
+            <!-- Other C# datatypes -->
+          `;
+          typeCell.appendChild(typeSelect);
+
+          // Create the input element for the name cell
+          const nameInput = document.createElement('input');
+          nameInput.type = 'text';
+          nameCell.appendChild(nameInput);
+
+          // Create the radio button element for the array cell
+          const arrayRadio = document.createElement('input');
+          arrayRadio.type = 'radio';
+          arrayRadio.name = 'isArray';
+          arrayCell.appendChild(arrayRadio);
+
+          // Append the cells to the new row
+          newRow.appendChild(typeCell);
+          newRow.appendChild(nameCell);
+          newRow.appendChild(arrayCell);
+
+          // Append the new row to the table
+          table.appendChild(newRow);
+        }
+        
+        function sendToBackend(){
+
+        }
+     </script>
+
+
+}

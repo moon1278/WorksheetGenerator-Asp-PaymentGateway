@@ -1,0 +1,76 @@
+﻿@model WorksheetGenerator.Models.Role.AddUserToRoleViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <!-- Worksheet Details -->
+            <div id="Main-Card" class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+
+
+                        <h1>User zur Rolle "@Model.RoleName" hinzufügen.</h1>
+      
+                        <div class="row">
+                            <div class="col-md-4">
+                               
+                            <form method="post">
+                                <label for="userList">User auswählen:</label>
+                                <select id="userList" name="userList" multiple="multiple" class="form-control select2-default">
+                                    @foreach (var user in Model.UsersNotInRole)
+                                    {
+                                        <option value="@user.Id">@user.Email</option>
+                                    }
+                                </select>
+                                <br />
+                                <input type="hidden" name="roleId" value="@Model.RoleId" />
+                                <input type="submit" value="Submit" class="btn btn-primary" />
+                            </form>
+
+                            </div>
+                        </div>
+
+                        <div>
+                            <a asp-action="Index">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preview box -->
+
+        </div>
+    </section>
+</div>
+
+<!-- Include Select2 CSS and JavaScript files -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+<!-- Initialize Select2 -->
+<script>
+    $(document).ready(function() {
+        $('.select2-default').select2();
+    });
+</script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

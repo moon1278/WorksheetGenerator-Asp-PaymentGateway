@@ -1,0 +1,94 @@
+﻿@model WorksheetGenerator.Models.SubTaskType.DetailsSubTaskTypeModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    
+<div class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+			</div>
+		</div>
+		<!-- /.container-fluid -->
+	</section>
+	<!-- Main content -->
+	<section class="content">
+		<div class="row">
+			<!-- Worksheet Details -->
+			<div id="Main-Card" class="col-md-12">
+				<div class="card">
+					<div class="card-body">
+                        <p>
+                            <a class="btn btn-xpand-primary btn-flat" asp-action="Create">Create New</a>
+                        </p>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.DetailsSubTaskTypeModels[0].Id)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.DetailsSubTaskTypeModels[0].Name)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.DetailsSubTaskTypeModels[0].Description)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.DetailsSubTaskTypeModels[0].TaskType)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                        @foreach (var item in Model.DetailsSubTaskTypeModels) {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Description)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TaskType)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                    </td>
+                                </tr>
+                        }
+                            </tbody>
+                        </table>
+
+					</div>
+				</div>
+			</div>
+									
+			<!-- Preview box -->
+
+		</div>
+	</section>
+</div>
+
+
+@section Scripts{
+    <script>
+
+
+        @Html.Raw(@Model.JavascriptToRun)
+
+        function ShowSuccessMessage(text) {       
+            
+                toastr.success(text)
+            
+        };
+    </script>
+}

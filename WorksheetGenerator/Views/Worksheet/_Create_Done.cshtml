@@ -1,0 +1,52 @@
+﻿@model WorksheetGenerator.Models.WorksheetModels.CreateWorksheetViewModel_WorksheetDownload
+<!-- Content hier-->
+<div class="row">
+          <div class="row">
+                            <div class="col-12 col-md-12 col-lg-6 order-2 order-md-1">
+                              <div class="mt-5 mb-3">
+									<div class="row">
+										<div style="font-size:3rem;font-family: 'Nanum Gothic', sans-serif;" class="col-12">
+											Dein Arbeitsblatt wurde
+										</div>                                 
+									</div>
+									<div class="row">
+										<div style="font-size:3rem;font-weight:bold; font-family: 'Cabin', sans-serif;margin-top:-20px" class="xpand-primary col-12">
+                                   
+											erfolgreich erstellt!
+
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-12" style="margin-top:1rem;">
+                                   
+										Dein Arbeitsblatt wurde erstellt. Drücke unten auf den Button um es herunterzuladen.
+
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-12" style="margin-top:4rem;">
+                                   
+											<button class="btn btn-xpand-primary btn-flat" id="worksheetDownload" onclick="downloadWorksheet(@Model.WorksheetId)" style="border-radius: 12px;">Download Arbeitsblatt</button>
+
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-12" style="margin-top:4rem;">
+                                   
+											Du brauchst die Lösungen für das Arbeitsblatt? Dann geh unter "Arbeitsblattverwaltung und lad dir dort die Lösungen runter.
+
+										</div>
+									</div>
+                              </div>
+								
+                           </div>
+                           <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
+                             
+                              <div class="text-center mt-5 mb-3">
+                                 <img style="width: 100%;height: auto;" src="~/dist/img/download_loading.png"/>
+                              </div>
+                           </div>
+                        </div>
+
+</div>
+

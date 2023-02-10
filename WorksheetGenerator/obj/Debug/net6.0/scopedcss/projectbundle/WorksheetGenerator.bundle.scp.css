@@ -1,0 +1,196 @@
+/* _content/WorksheetGenerator/Views/Shared/_Footbar.cshtml.rz.scp.css */
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand[b-aaxmhoe8mb] {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+a[b-aaxmhoe8mb] {
+  color: #0077cc;
+}
+
+.btn-primary[b-aaxmhoe8mb] {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active[b-aaxmhoe8mb], .nav-pills .show > .nav-link[b-aaxmhoe8mb] {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.border-top[b-aaxmhoe8mb] {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom[b-aaxmhoe8mb] {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow[b-aaxmhoe8mb] {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy[b-aaxmhoe8mb] {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+.footer[b-aaxmhoe8mb] {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
+}
+/* _content/WorksheetGenerator/Views/Shared/_Layout.cshtml.rz.scp.css */
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand[b-1v4xz8sodg] {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+a[b-1v4xz8sodg] {
+  color: #0077cc;
+}
+
+.btn-primary[b-1v4xz8sodg] {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active[b-1v4xz8sodg], .nav-pills .show > .nav-link[b-1v4xz8sodg] {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.border-top[b-1v4xz8sodg] {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom[b-1v4xz8sodg] {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow[b-1v4xz8sodg] {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy[b-1v4xz8sodg] {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+.footer[b-1v4xz8sodg] {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
+}
+/* _content/WorksheetGenerator/Views/Shared/_Sidebar.cshtml.rz.scp.css */
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand[b-10ek7nj1kb] {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+a[b-10ek7nj1kb] {
+  color: #0077cc;
+}
+
+.btn-primary[b-10ek7nj1kb] {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active[b-10ek7nj1kb], .nav-pills .show > .nav-link[b-10ek7nj1kb] {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.border-top[b-10ek7nj1kb] {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom[b-10ek7nj1kb] {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow[b-10ek7nj1kb] {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy[b-10ek7nj1kb] {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+.footer[b-10ek7nj1kb] {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
+}
+/* _content/WorksheetGenerator/Views/Shared/_Topbar.cshtml.rz.scp.css */
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand[b-erb1qe3u8k] {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+a[b-erb1qe3u8k] {
+  color: #0077cc;
+}
+
+.btn-primary[b-erb1qe3u8k] {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active[b-erb1qe3u8k], .nav-pills .show > .nav-link[b-erb1qe3u8k] {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.border-top[b-erb1qe3u8k] {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom[b-erb1qe3u8k] {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow[b-erb1qe3u8k] {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy[b-erb1qe3u8k] {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+.footer[b-erb1qe3u8k] {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
+}

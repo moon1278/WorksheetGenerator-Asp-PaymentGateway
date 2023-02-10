@@ -1,0 +1,261 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = WorksheetGenerator
+build_property.RootNamespace = WorksheetGenerator
+build_property.ProjectDir = E:\Download\WorksheetGenerator-master\WorksheetGenerator\WorksheetGenerator\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = E:\Download\WorksheetGenerator-master\WorksheetGenerator\WorksheetGenerator
+build_property._RazorSourceGeneratorDebug = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Areas/Identity/Pages/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Areas/Identity/Pages/Account/Logout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Areas/Identity/Pages/Account/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxfVmlld0ltcG9ydHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZhbGlkYXRpb25TY3JpcHRzUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Areas/Identity/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Areas/Identity/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Account/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Admin/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Legal/DSGVO.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVnYWxcRFNHVk8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Legal/Impressum.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVnYWxcSW1wcmVzc3VtLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Role/AddUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZVxBZGRVc2VyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Role/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Role/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZVxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Role/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZVxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Role/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Role/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Shared/_LoginPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/SubTaskType/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3ViVGFza1R5cGVcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/SubTaskType/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3ViVGFza1R5cGVcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/SubTaskType/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3ViVGFza1R5cGVcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/SubTaskType/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3ViVGFza1R5cGVcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/SubTaskType/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3ViVGFza1R5cGVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/TaskType/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFza1R5cGVcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/TaskType/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFza1R5cGVcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/TaskType/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFza1R5cGVcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/TaskType/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFza1R5cGVcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/TaskType/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFza1R5cGVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Task/AddJson.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFza1xBZGRKc29uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Task/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFza1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Task/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFza1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Task/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFza1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Task/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFza1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Task/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFza1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Token/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG9rZW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Token/List.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG9rZW5cTGlzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Token/User.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG9rZW5cVXNlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/User/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/User/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/User/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/User/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/WorksheetManagement/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya3NoZWV0TWFuYWdlbWVudFxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/WorksheetManagement/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya3NoZWV0TWFuYWdlbWVudFxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/WorksheetManagement/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya3NoZWV0TWFuYWdlbWVudFxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/WorksheetManagement/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya3NoZWV0TWFuYWdlbWVudFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Worksheet/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya3NoZWV0XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Worksheet/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya3NoZWV0XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Worksheet/Overview.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya3NoZWV0XE92ZXJ2aWV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Worksheet/_Create_Done.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya3NoZWV0XF9DcmVhdGVfRG9uZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Worksheet/_Create_General.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya3NoZWV0XF9DcmVhdGVfR2VuZXJhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Worksheet/_Create_Task.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya3NoZWV0XF9DcmVhdGVfVGFzay5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Shared/_Footbar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Gb290YmFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = b-aaxmhoe8mb
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-1v4xz8sodg
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Shared/_Sidebar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9TaWRlYmFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = b-10ek7nj1kb
+
+[E:/Download/WorksheetGenerator-master/WorksheetGenerator/WorksheetGenerator/Views/Shared/_Topbar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Ub3BiYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-erb1qe3u8k

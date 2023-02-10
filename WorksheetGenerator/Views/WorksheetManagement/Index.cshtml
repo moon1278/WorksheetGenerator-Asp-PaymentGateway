@@ -1,0 +1,168 @@
+﻿@model WorksheetGenerator.Models.WorksheetManagement.DetailsWorksheetManagementModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*
+<style>
+    .product-container {
+        width: 300px;
+        border: 1px solid #c1c1c1;
+        border-radius: 10px;
+        box-shadow: 0 0 5px 0 #b5b5b5;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .product-category {
+        padding: 20px;
+    }
+
+    .product-name {
+        font-size: 40px;
+        font-weight: bold;
+        padding: 20px;
+    }
+
+    .product-price {
+        padding: 20px;
+        font-size: 20px;
+    }
+
+    .product-checkout {
+        padding: 5px;
+        width: 100px;
+        border: 1px solid #2e2e2e;
+        outline: none;
+        border-radius: 10px;
+        margin: 20px;
+    }
+
+    .product-checkout:hover {
+        background-color: #2e2e2e;
+        color: white;
+    }
+</style>*@
+    
+<div class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+			</div>
+		</div>
+		<!-- /.container-fluid -->
+	</section>
+	<!-- Main content -->
+	<section class="content">
+		<div class="row">
+			<!-- Worksheet Details -->
+			<div id="Main-Card" class="col-md-12">
+				<div class="card">
+					<div class="card-body">
+                        <table id="TaskTable" class="table" width="100%" data-toggle="table">
+                            <thead>
+                                <tr>
+                                    <th data-field="@Html.DisplayNameFor(model => model.DetailsTaskModels[0].Id)">
+                                        @Html.DisplayNameFor(model => model.DetailsTaskModels[0].Id)
+                                    </th>
+                                    <th data-field="@Html.DisplayNameFor(model => model.DetailsTaskModels[0].Name)">
+                                        @Html.DisplayNameFor(model => model.DetailsTaskModels[0].Name)
+                                    </th>
+                                    <th data-field="@Html.DisplayNameFor(model => model.DetailsTaskModels[0].Created)">
+                                        @Html.DisplayNameFor(model => model.DetailsTaskModels[0].Created)
+                                    </th>
+                
+                                     <th data-field="@Html.DisplayNameFor(model => model.DetailsTaskModels[0].Created_User)">
+                                        @Html.DisplayNameFor(model => model.DetailsTaskModels[0].Created_User)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var item in Model.DetailsTaskModels) {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Created)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Created_User)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+                                        <button class="btn btn-xpand-primary btn-flat" onclick="downloadWorksheet(@item.Id)">Download</button> |
+                                        <button class="btn btn-xpand-primary btn-flat" onclick="downloadSolution(@item.Id)">Lösung</button>
+
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+					</div>
+				</div>
+               @* <div class="product-container">
+                    <h5 class="product-category">Product1</h5>
+                    <div class="product-name">Football shoes</div>
+                    <span class="product-price">40 $</span>
+                    <div id="paypal-button-container" style="margin: 20px;"></div>
+                </div>*@
+			</div>
+			<!-- Preview box -->
+		</div>
+	</section>
+</div>
+
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+<!-- This is PayPal checkout api link -->
+<script>
+
+    paypal.Button.render({
+
+        env: 'sandbox', // sandbox | production
+
+        // PayPal Client IDs - replace with your own
+        // Create a PayPal app: https://developer.paypal.com/developer/applications/create
+        client: {
+            sandbox: 'AWKJkM9AnalCAQaHCVR0waye8ze5MXZI375-zJpWJrzkS0HGssWn5N0GSpTjcctw6mBhDqlw5nYusDmW', // Client id
+            production: 'HXBD6X4HWGZP8' // Product id
+        },
+
+        // Show the buyer a 'Pay Now' button in the checkout flow
+        commit: true,
+
+        // payment() is called when the button is clicked
+        payment: function (data, actions) {
+
+            // Make a call to the REST api to create the payment
+            return actions.payment.create({
+                payment: {
+                    transactions: [
+                        {
+                            amount: { total: '40', currency: 'USD' } // Product price
+                        }
+                    ]
+                }
+            });
+        },
+
+        // onAuthorize() is called when the buyer approves the payment
+        onAuthorize: function (data, actions) {
+
+            // Make a call to the REST api to execute the payment
+            return actions.payment.execute().then(function () {
+
+                console.log(data) // Returned token
+            });
+        }
+
+    }, '#paypal-button-container');
+</script>

@@ -1,0 +1,202 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+     <a href="@Url.Action("Index", "Home")" class="brand-link logo-switch">
+        <img src="~/dist/img/logo-solo-blue.png" alt="AdminLTE Docs Logo Small" class="brand-image-xl logo-xs">
+        <img src="~/dist/img/logo-full-white.png" alt="AdminLTE Docs Logo Large" class="brand-image-xs logo-xl" style="left: 12px">
+    </a>
+
+    <div class="sidebar">
+        <nav class="mt-2">
+
+        @if (SignInManager.IsSignedIn(User))
+        {
+            @if (User.IsInRole("Administrator"))
+            {
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <li class="nav-item menu-is-opening menu-open">
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="material-icons">
+                                        admin_panel_settings
+                                    </i>
+                                    <p>
+                                        Admin
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("Index", "Admin")" class="nav-link">
+                                            <i class="nav-icon material-icons">space_dashboard</i>
+                                            <p>
+                                                Dashboard
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="material-icons nav-icon">
+                                                manage_accounts
+                                            </i>
+                                            <p>
+                                                Userverwaltung
+                                                <i class="right fas fa-angle-left"></i>
+                                            </p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                                <a href="@Url.Action("Index", "User")" class="nav-link">
+                                                    <i class="material-icons nav-icon">
+                                                        folder_shared
+                                                    </i>
+                                                    <p>
+                                                        User
+                                                    </p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="@Url.Action("Index", "Role")" class="nav-link">
+                                                    <i class="material-icons nav-icon">
+                                                        badge
+                                                    </i>
+                                                    <p>
+                                                        Rollen
+                                                    </p>
+                                                </a>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("Index", "WorksheetManagement")" class="nav-link">
+                                            <i class="material-icons nav-icon">
+                                                description
+                                            </i>
+                                            <p>
+                                                Arbeitsblattverwaltung
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="material-icons nav-icon">
+                                                Task
+                                            </i>
+                                            <p>
+                                                Aufgabenverwaltung
+                                                <i class="right fas fa-angle-left"></i>
+                                            </p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                                <a href="@Url.Action("Index", "TaskType")" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>
+                                                        TaskType
+                                                    </p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="@Url.Action("Index", "SubTaskType")" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>
+                                                        SubTaskType
+                                                    </p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="@Url.Action("Index", "Task")" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>
+                                                        Task
+                                                    </p>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    @if (SignInManager.IsSignedIn(User))
+                                    {
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("List", "Token")" class="nav-link">
+                                                <i class="nav-icon material-icons">space_dashboard</i>
+                                                <p>
+                                                    Transaction History
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("User", "Token")" class="nav-link">
+                                                <i class="nav-icon material-icons">space_dashboard</i>
+                                                <p>
+                                                    Buy Credit
+                                                </p>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("Create", "Worksheet")" class="nav-link">
+                                    <i class="fa-solid fa-file-circle-plus"> </i>
+                                    <p>
+                                        Arbeitsblatt erstellen
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            }
+            else
+            {
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <li class="nav-item menu-is-opening menu-open">
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="material-icons">
+                                        admin_panel_settings
+                                    </i>
+                                    <p>
+                                        User
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("User", "Token")" class="nav-link">
+                                            <i class="nav-icon material-icons">space_dashboard</i>
+                                            <p>
+                                                Buy Credit
+                                            </p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("Create", "Worksheet")" class="nav-link">
+                                    <i class="fa-solid fa-file-circle-plus"> </i>
+                                    <p>
+                                        Arbeitsblatt erstellen
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            }
+        }
+        </nav>
+        <!-- /.sidebar-menu -->
+        
+    </div>
+    <!-- /.sidebar -->
+</aside>

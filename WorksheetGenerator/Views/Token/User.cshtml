@@ -1,0 +1,558 @@
+﻿@model IEnumerable<WorksheetGenerator.Models.Token.TokenViewModel>
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    float count = 0;
+}
+
+
+<style>
+    .buy-container {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .buy-amount {
+        max-width: 50%;
+        min-width: 300px;
+        border: 1px solid #d7d7d7;
+        box-shadow: 0 0 2px 0 #b7b7b7;
+        border-radius: 5px;
+        padding: 5px;
+        height: 25px;
+        margin-right: 20px;
+    }
+
+    .buy-action {
+        width: 100px;
+        background-color: white;
+        border: 1px solid #2e2e2e;
+        box-shadow: 0 0 3px 0 #2a2a2a;
+        border-radius: 5px;
+    }
+
+    .buy-action:active {
+        background-color: #2e2e2e;
+        color: white;
+    }
+
+    .bold {
+        font-weight: bold;
+    }
+
+    .ticket-container {
+        width: 400px;
+        border: 1px solid #3e3e3e;
+        border-radius: 10px;
+        box-shadow: 0 0 4px 0 #404040;
+        margin: 30px;
+    }
+
+    .ticket-container:hover {
+        cursor: pointer;
+    }
+
+    .ticket-header {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .ticket-action {
+        display: flex;
+        justify-content: flex-end;
+    }
+</style>
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+            </div>
+        </div>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div id="Main-Card" class="col-md-12">
+                <div class="card" id="alert-container" style="display: none;">
+                    <div class="card-body">
+                        <span style="color: #00b147;" id="alert-content">rere</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body buy-container">
+                        <input type="number" class="buy-amount" name="payamount" id="amount">
+                        <div id="paypal-button-container"></div>
+                        @foreach(var item in Model)
+                        {
+                            @if(item.UserId == UserManager.GetUserId(User))
+                            {
+                                count = count + item.CreditAmount;
+                            }
+                        }
+                        <span style="margin-left: 20px;">You currently have : @count credits</span>
+                    </div>
+                    <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
+                    <form method="post" asp-action="Buy" id="verifyForm" target="dummyframe" style="display: none;">
+                        <div class="card-body buy-container">
+                            <input name="userid" id="userid" value="@UserManager.GetUserId(User)"/>
+                            <input name="creditamount" id="count">
+                            <input name="payamount" id="amount1">
+                            <input name="orderid" id="orderid">
+                            <input name="payerid" id="payerid">
+                            <input name="paymentid" id="paymentid">
+                            <input name="paymenttoken" id="paymenttoken">
+                        </div>
+                    </form>
+                </div>
+                <div class="card" style="flex-direction: row;">
+                    <div class="card-body ticket-container" onclick="selectTicket()">
+                        <div class="ticket-header">
+                            <h5 class="bold">10 $</h5>
+                            <h5 class="bold">100 credits</h5>
+                        </div>
+                        <span>For 10 $ you can get 100 credits</span>
+                        <div class="ticket-action">
+                            <div id="paypal-button-container1"></div>
+                        </div>
+                    </div>
+                    <div class="card-body ticket-container" onclick="selectTicket()">
+                        <div class="ticket-header">
+                            <h5 class="bold">15 $</h5>
+                            <h5 class="bold">150 credits</h5>
+                        </div>
+                        <span>For 15 $ you can get 150 credits</span>
+                        <div class="ticket-action">
+                            <div id="paypal-button-container2"></div>
+                        </div>
+                    </div>
+                    <div class="card-body ticket-container" onclick="selectTicket()">
+                        <div class="ticket-header">
+                            <h5 class="bold">20 $</h5>
+                            <h5 class="bold">200 credits</h5>
+                        </div>
+                        <span>For 20 $ you can get 200 credits</span>
+                        <div class="ticket-action">
+                            <div id="paypal-button-container3"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <table id="TaskTable" class="table" width="100%" data-toggle="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CreditAmount)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.PayAmount)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.OrderId)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.PaymentId)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.PaymentToken)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-list">
+                            @foreach (var item in Model)
+                            {
+                                @if(item.UserId == UserManager.GetUserId(User))
+                                {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreditAmount)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PayAmount)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.OrderId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PaymentId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PaymentToken)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                    </td>
+                                </tr>
+                                }
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Preview box -->
+        </div>
+    </section>
+</div>
+@section scripts {
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+    <script>
+
+        function selectTicket() {
+            alert()
+        }
+
+        paypal.Button.render({
+
+            env: 'sandbox',
+
+            style: {
+                layout: 'horizontal',
+                color: 'white',
+                shape: 'rect',
+                label: 'buynow'
+            },
+
+            client: {
+                sandbox: 'AWKJkM9AnalCAQaHCVR0waye8ze5MXZI375-zJpWJrzkS0HGssWn5N0GSpTjcctw6mBhDqlw5nYusDmW',
+                production: 'HXBD6X4HWGZP8'
+            },
+
+            commit: true,
+
+            payment: function (data, actions) {
+
+                return actions.payment.create({
+                    payment: {
+                        transactions: [
+                            {
+                                amount: {
+                                    total: $('#amount').val(),
+                                    currency: 'USD'
+                                }
+                            }
+                        ]
+                    }
+                });
+            },
+
+            onAuthorize: function (data, actions) {
+
+                console.log(data)
+                return actions.payment.execute().then(function () {
+                    $('#count').val(parseFloat(parseFloat($('#amount').val()) / 0.1));
+                    $('#amount1').val($('#amount').val());
+                    $('#orderid').val(data.orderID);
+                    $('#payerid').val(data.payerID);
+                    $('#paymentid').val(data.paymentId);
+                    $('#paymenttoken').val(data.paymentToken);
+
+                    $('#verifyForm').submit();
+
+                    setTimeout(() => {
+                        $('#table-list').append(`
+                        <tr>
+                            <td>
+                                ${$('#count').val()}
+                            </td>
+                            <td>
+                                ${$('#amount1').val()}
+                            </td>
+                            <td>
+                                ${$('#orderid').val()}
+                            </td>
+                            <td>
+                                ${$('#payerid').val()}
+                            </td>
+                            <td>
+                                ${$('#paymenttoken').val()}
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id=""> Edit </a> |
+                                <a asp-action="Details" asp-route-id=""> Details </a> |
+                                <a asp-action="Delete" asp-route-id=""> Delete </a>
+                            </td>
+                        </tr>
+                        `)
+
+                        $('#alert-content').html(`
+                            Congratulation! you just bought ${$('#count').val()} credits for ${$('#amount1').val()} $.
+                            Your new balance is ${@count + parseFloat($('#count').val())}.
+                        `);
+
+                        document.getElementById('alert-container').style.display = 'block';
+                    }, 1000);
+                });
+            }
+
+        }, '#paypal-button-container');
+
+        paypal.Button.render({
+
+            env: 'sandbox',
+
+            style: {
+                layout: 'horizontal',
+                color: 'white',
+                shape: 'rect',
+                label: 'buynow'
+            },
+
+            client: {
+                sandbox: 'AWKJkM9AnalCAQaHCVR0waye8ze5MXZI375-zJpWJrzkS0HGssWn5N0GSpTjcctw6mBhDqlw5nYusDmW',
+                production: 'HXBD6X4HWGZP8'
+            },
+
+            commit: true,
+
+            payment: function (data, actions) {
+
+                return actions.payment.create({
+                    payment: {
+                        transactions: [
+                            {
+                                amount: {
+                                    total: 10,
+                                    currency: 'USD'
+                                }
+                            }
+                        ]
+                    }
+                });
+            },
+
+            onAuthorize: function (data, actions) {
+
+                console.log(data)
+                return actions.payment.execute().then(function () {
+                    $('#count').val(100);
+                    $('#amount1').val(10);
+                    $('#orderid').val(data.orderID);
+                    $('#payerid').val(data.payerID);
+                    $('#paymentid').val(data.paymentId);
+                    $('#paymenttoken').val(data.paymentToken);
+
+                    $('#verifyForm').submit();
+
+                    setTimeout(() => {
+                        $('#table-list').append(`
+                        <tr>
+                            <td>
+                                100
+                            </td>
+                            <td>
+                                10
+                            </td>
+                            <td>
+                                ${$('#orderid').val()}
+                            </td>
+                            <td>
+                                ${$('#payerid').val()}
+                            </td>
+                            <td>
+                                ${$('#paymenttoken').val()}
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id=""> Edit </a> |
+                                <a asp-action="Details" asp-route-id=""> Details </a> |
+                                <a asp-action="Delete" asp-route-id=""> Delete </a>
+                            </td>
+                        </tr>
+                        `)
+
+                        $('#alert-content').html(`
+                            Congratulation! you just bought 100 credits for 10 $.
+                            Your new balance is ${@count + 100}.
+                        `);
+
+                        document.getElementById('alert-container').style.display = 'block';
+                    }, 1000);
+                });
+            }
+
+        }, '#paypal-button-container1');
+
+
+        paypal.Button.render({
+
+            env: 'sandbox',
+
+            style: {
+                layout: 'horizontal',
+                color: 'white',
+                shape: 'rect',
+                label: 'buynow'
+            },
+
+            client: {
+                sandbox: 'AWKJkM9AnalCAQaHCVR0waye8ze5MXZI375-zJpWJrzkS0HGssWn5N0GSpTjcctw6mBhDqlw5nYusDmW',
+                production: 'HXBD6X4HWGZP8'
+            },
+
+            commit: true,
+
+            payment: function (data, actions) {
+
+                return actions.payment.create({
+                    payment: {
+                        transactions: [
+                            {
+                                amount: {
+                                    total: 15,
+                                    currency: 'USD'
+                                }
+                            }
+                        ]
+                    }
+                });
+            },
+
+            onAuthorize: function (data, actions) {
+
+                console.log(data)
+                return actions.payment.execute().then(function () {
+                    $('#count').val(150);
+                    $('#amount1').val(15);
+                    $('#orderid').val(data.orderID);
+                    $('#payerid').val(data.payerID);
+                    $('#paymentid').val(data.paymentId);
+                    $('#paymenttoken').val(data.paymentToken);
+
+                    $('#verifyForm').submit();
+
+                    setTimeout(() => {
+                        $('#table-list').append(`
+                        <tr>
+                            <td>
+                                150
+                            </td>
+                            <td>
+                                15
+                            </td>
+                            <td>
+                                ${$('#orderid').val()}
+                            </td>
+                            <td>
+                                ${$('#payerid').val()}
+                            </td>
+                            <td>
+                                ${$('#paymenttoken').val()}
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id=""> Edit </a> |
+                                <a asp-action="Details" asp-route-id=""> Details </a> |
+                                <a asp-action="Delete" asp-route-id=""> Delete </a>
+                            </td>
+                        </tr>
+                        `)
+
+                        $('#alert-content').html(`
+                            Congratulation! you just bought 150 credits for 15 $.
+                            Your new balance is ${@count + 150}.
+                        `);
+
+                        document.getElementById('alert-container').style.display = 'block';
+                    }, 1000);
+                });
+            }
+
+        }, '#paypal-button-container2');
+
+
+        paypal.Button.render({
+
+            env: 'sandbox',
+
+            style: {
+                layout: 'horizontal',
+                color: 'white',
+                shape: 'rect',
+                label: 'buynow'
+            },
+
+            client: {
+                sandbox: 'AWKJkM9AnalCAQaHCVR0waye8ze5MXZI375-zJpWJrzkS0HGssWn5N0GSpTjcctw6mBhDqlw5nYusDmW',
+                production: 'HXBD6X4HWGZP8'
+            },
+
+            commit: true,
+
+            payment: function (data, actions) {
+
+                return actions.payment.create({
+                    payment: {
+                        transactions: [
+                            {
+                                amount: {
+                                    total: 20,
+                                    currency: 'USD'
+                                }
+                            }
+                        ]
+                    }
+                });
+            },
+
+            onAuthorize: function (data, actions) {
+
+                console.log(data)
+                return actions.payment.execute().then(function () {
+                    $('#count').val(200);
+                    $('#amount1').val(20);
+                    $('#orderid').val(data.orderID);
+                    $('#payerid').val(data.payerID);
+                    $('#paymentid').val(data.paymentId);
+                    $('#paymenttoken').val(data.paymentToken);
+
+                    $('#verifyForm').submit();
+
+                    setTimeout(() => {
+                        $('#table-list').append(`
+                        <tr>
+                            <td>
+                                200
+                            </td>
+                            <td>
+                                20
+                            </td>
+                            <td>
+                                ${$('#orderid').val()}
+                            </td>
+                            <td>
+                                ${$('#payerid').val()}
+                            </td>
+                            <td>
+                                ${$('#paymenttoken').val()}
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id=""> Edit </a> |
+                                <a asp-action="Details" asp-route-id=""> Details </a> |
+                                <a asp-action="Delete" asp-route-id=""> Delete </a>
+                            </td>
+                        </tr>
+                        `)
+
+                        $('#alert-content').html(`
+                            Congratulation! you just bought 200 credits for 20 $.
+                            Your new balance is ${@count + 200}.
+                        `);
+
+                        document.getElementById('alert-container').style.display = 'block';
+                    }, 1000);
+                });
+            }
+
+        }, '#paypal-button-container3');
+
+
+    </script>
+}
+

@@ -1,0 +1,193 @@
+﻿@model WorksheetGenerator.Models.Token.TokenViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .buy-container {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .buy-amount {
+        width: 50%;
+        border: 1px solid #d7d7d7;
+        box-shadow: 0 0 2px 0 #b7b7b7;
+        border-radius: 5px;
+        padding: 5px;
+        height: 25px;
+    }
+
+    .buy-action {
+        width: 100px;
+        background-color: white;
+        border: 1px solid #2e2e2e;
+        box-shadow: 0 0 3px 0 #2a2a2a;
+        border-radius: 5px;
+    }
+
+    .buy-action:active {
+        background-color: #2e2e2e;
+        color: white;
+    }
+</style>
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <!-- Worksheet Details -->
+            <div id="Main-Card" class="col-md-12">
+                <div class="card">
+                    @*<form method="post" asp-action="Buy">*@
+                    <div class="card-body buy-container">
+                        <input type="number" class="buy-amount" name="amount" id="amount">
+                        @*<button type="submit" class="buy-action">Buy</button>*@
+                        <div id="paypal-button-container"></div>
+                    </div>
+                    @*</form>*@
+                    <form method="post" asp-action="Buy" id="verifyForm" style="display: none;">
+                        <div class="card-body buy-container">
+                            <input name="price" id="price">
+                            <input name="count" id="count">
+                            <input name="orderid" id="orderid">
+                            <input name="payerid" id="payerid">
+                            <input name="paymentid" id="paymentid">
+                            <input name="paymenttoken" id="paymenttoken">
+                        </div>
+                    </form>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <table id="TaskTable" class="table" width="100%" data-toggle="table">
+                            <thead>
+                                <tr>
+                                    <th data-field="id">
+                                        Id
+                                    </th>
+                                    <th data-field="amount">
+                                        Amount
+                                    </th>
+                                    <th data-field="price">
+                                        Count
+                                    </th>
+                                    <th data-field="order-id">
+                                        OrderId
+                                    </th>
+                                    <th data-field="payment-id">
+                                        PaymentId
+                                    </th>
+                                    <th data-field="payment-token">
+                                        PaymentToken
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @*@foreach (var item in Model.Tokens)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreditAmount)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PayAmount)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.OrderId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PaymentId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PaymentToken)
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-xpand-primary btn-flat">Send</button>
+                                    </td>
+                                </tr>
+                            }*@
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Preview box -->
+        </div>
+    </section>
+</div>
+
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+<script>
+    paypal.Button.render({
+
+        env: 'sandbox', // sandbox | production
+
+        style: {
+            layout: 'horizontal',
+            color: 'white',
+            shape: 'rect',
+            label: 'buynow'
+        },
+
+        // PayPal Client IDs - replace with your own
+        // Create a PayPal app: https://developer.paypal.com/developer/applications/create
+        client: {
+            sandbox: 'AWKJkM9AnalCAQaHCVR0waye8ze5MXZI375-zJpWJrzkS0HGssWn5N0GSpTjcctw6mBhDqlw5nYusDmW',
+            production: 'HXBD6X4HWGZP8'
+        },
+
+        // Show the buyer a 'Pay Now' button in the checkout flow
+        commit: true,
+
+        // payment() is called when the button is clicked
+        payment: function (data, actions) {
+
+            // Make a call to the REST api to create the payment
+            return actions.payment.create({
+                payment: {
+                    transactions: [
+                        {
+                            amount: {
+                                total: $('#amount').val(),
+                                currency: 'USD'
+                            }
+                        }
+                    ]
+                }
+            });
+        },
+
+        // onAuthorize() is called when the buyer approves the payment
+        onAuthorize: function (data, actions) {
+
+            console.log(data)
+            // Make a call to the REST api to execute the payment
+            return actions.payment.execute().then(function () {
+                $('#price').val($('#amount').val());
+                $('#count').val(parseFloat($('#amount').val()) / 5);
+                $('#orderid').val(data.orderID);
+                $('#payerid').val(data.payerID);
+                $('#paymentid').val(data.paymentId);
+                $('#paymenttoken').val(data.paymentToken);
+
+                $('#verifyForm').submit();
+            });
+        }
+
+    }, '#paypal-button-container');
+
+</script>

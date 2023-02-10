@@ -1,0 +1,2 @@
+﻿ALTER TABLE dbo.Worksheet
+ADD FOREIGN KEY (UserId) REFERENCES dbo.AspNetUsers(Id); 

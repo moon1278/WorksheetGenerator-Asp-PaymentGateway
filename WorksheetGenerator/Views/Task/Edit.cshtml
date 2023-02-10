@@ -1,0 +1,522 @@
+﻿@model WorksheetGenerator.Models.Task.EditTaskModel
+@using WorksheetGenerator.Data;
+@using Newtonsoft.Json;
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    
+    <!-- Main content -->
+    <section class="content">
+        <form method="post" enctype="multipart/form-data" asp-action="Edit">
+            <h1>Aufgabe bearbeiten</h1>
+            <hr />
+            <div class="row">
+              
+                <div id="Main-Card" class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h1>Allgemein</h1>
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <input type="hidden" asp-for="Id" />
+                                    <div class="form-group">
+                                        <label asp-for="Name" class="control-label"></label>
+                                        <input asp-for="Name" class="form-control" />
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="SubTaskTypes"></label>
+                                        @Html.DropDownListFor(model => model.SelectedSubTaskType, Model.SubTaskTypes, "-- TaskType wählen --", new {@class = "form-control custom-select rounded-0"})
+                                        <span asp-validation-for="SelectedSubTaskType" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Description" class="control-label"></label>
+                                        <input asp-for="Description" class="form-control" />
+                                        <span asp-validation-for="Description" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Query" class="control-label"></label>
+                                        <input asp-for="Query" class="form-control" />
+                                        <span asp-validation-for="Query" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Activated" class="control-label"></label>
+                                        @Html.CheckBoxFor(model => model.Activated)
+                                        <span asp-validation-for="Activated" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="imageFile">Select Image:</label>
+                                            <input type="file" name="previewImage" id="previewImage" accept="image/*" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Vorschau Bild</label>
+                                        <img style="border:solid" src="data:image/png;base64,@Convert.ToBase64String(Model.PreviewImage)" />
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div id="Spec-Card" class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h1>Spezifikationen</h1>
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table id="spec_table" class="table table-responsive-md table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th><strong>Position</strong></th>
+                                                <th><strong>Type</strong></th>
+                                                <th><strong>Name</strong></th>
+                                                <th><strong>Description</strong></th>
+                                                <th><strong>Dynamic Replacement Text</strong></th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @for (int i = 0; i < Model.Specifications.Count; i++)
+                                            {
+                                                <tr>
+                                                    <td style="text-align: center;">
+                                                        <input id="position_@i"  type="text" class="form-control hidden" name="Specifications[@i].Position" value="@Model.Specifications[i].Position" />
+                                                        <b id="pos_text_@i">@Model.Specifications[i].Position</b>
+                                                    </td>
+                                                    <td>
+                                                        <select class="form-control" name="Specifications[@i].Selected_HTML_SpecificationTypeId" id="type_@i">
+                                                            @foreach (var option in Model.HTML_SpecificationTypes)
+                                                            {
+                                                                var selected = false;
+                                                                if (option.Id == @Model.Specifications[i].HTML_SpecificationTypeId)
+                                                                {
+                                                                    selected = true;
+                                                                }
+                                                                <option value="@option.Id" selected="@selected">@option.Type </option>
+                                                            }
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control hidden" name="Specifications[@i].Id" value="@Model.Specifications[i].Id" id="spec_id_Specifications[@i].Id" />
+                                                        <input type="text" class="form-control" name="Specifications[@i].Name" value="@Model.Specifications[i].Name" id="name_@i" />
+                                                    </td>
+                                                    <td>
+                                                        <textarea class="form-control" name="Specifications[@i].Description" rows="2" id="description_@i">@Model.Specifications[i].Description</textarea>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" name="Specifications[@i].Dynamic_Replace_Text" value="@Model.Specifications[i].Dynamic_Replace_Text" id="text_@i" />
+                                                    </td>
+                                                    <td style="text-align: center;">
+                                                        <button type="button" class="btn btn-default btn-sm move-up" onclick="moveUp(this)">
+                                                            <i class="fa fa-arrow-up">
+
+                                                            </i>
+                                                        </button>
+                                                        <button type="button" class="btn btn-default btn-sm move-down" onclick="moveDown(this)">
+                                                            <i class="fa fa-arrow-down">
+
+                                                            </i>
+                                                        </button>
+                                                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteSpecification(@Model.Specifications[i].Id,@i)">
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
+                                                        <button id="edit_selectlist_@i" type="button" class="btn btn-default hidden" onclick="editSelectList(@Model.Specifications[i].Id)">Edit Selectlist</button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <input type="text" class="form-control hidden" name="Id" value="@Model.Id" id="task_id" />
+
+
+                                    <button type="button" class="btn btn-default btn-sm add-row" onclick="addRow()">
+                                    <i class="fa fa-plus"></i> Add Row
+                                    </button>
+
+                                </div>
+                            </div>
+                       
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div id="Back-Card" class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <input type="submit" value="Save" class="btn btn-xpand-primary btn-flat" />
+                                    </div>
+                                    <div>
+                                        <a asp-action="Index">Back to List</a>
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+
+
+        <div class="modal fade" id="modal-editselectlist">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 id="modal-showTaskInfo-title" class="modal-title">Optionen bearbeiten - </h4>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <ul id="edit-list-modal-body"></ul>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</div>
+
+
+@{
+    var jsonSpecifications = JsonConvert.SerializeObject(Model.Specifications);
+    var jsonOptions = JsonConvert.SerializeObject(Model.HTML_SpecificationTypes);
+
+}
+
+
+@section Scripts {
+
+<script type="text/javascript">
+ 
+        $(document).ready(function () {
+            $("select[id^='type_']").change(function () {
+
+                var selectedOption = $(this).val();
+
+                console.log("selectedOption: " + selectedOption)
+                var buttonId = $(this).attr("id").replace("type_", "edit_selectlist_");
+                console.log("buttonId: " + buttonId)
+
+                if (selectedOption === "1") {
+                    $("#" + buttonId).removeClass("hidden");
+                } else {
+                    $("#" + buttonId).addClass("hidden");
+                }
+            });
+
+            $("select[id^='type_']").each(function () {
+
+                var selectedOption = $(this).val();
+
+                alert("selectedOption: " + selectedOption)
+                var buttonId = $(this).attr("id").replace("type_", "edit_selectlist_");
+                alert("buttonId: " + buttonId)
+
+                if (selectedOption === "1") {
+                    $("#" + buttonId).removeClass("hidden");
+                } else {
+                    $("#" + buttonId).addClass("hidden");
+                }
+            });
+        });
+              
+        function editSelectList(specId){
+
+            $.ajax({
+                url: '/Task/GetSelectListItems',
+                type: 'POST',
+                data: { specId: specId },
+                success: function (data) {
+               
+
+                    for (var i = 0; i < data.length; i++) {
+                        
+                        var listItem = $("<li>").text(data[i].name); //create a list item element and set its text to the name of the item
+                        var deleteButton = $("<button>").text("x").click(function () { //create a delete button element and set its text to "x"
+                            listItem.remove(); // when the button is clicked, remove the corresponding list item
+                        });
+
+                        listItem.prepend(deleteButton); // add the delete button in front of the list item
+
+                        $("#edit-list-modal-body").append(listItem); //add the list to the body of the HTML documen
+
+                    }
+
+
+                    
+                },
+                error: function (data, success, failure) {
+                    alert("Error:" + failure);
+                }
+            });
+
+            $('#modal-editselectlist').modal('show');
+
+        }
+
+        function addRow() {
+            // Get the table body
+            var tbody = document.querySelector('tbody');
+
+            // Create a new row
+            var newRow = document.createElement('tr');
+
+            var row_id = tbody.children.length;
+
+
+            // Create a new position cell
+            var newPositionCell = document.createElement('td');
+            newPositionCell.style.textAlign = 'center';
+
+
+            var newPositionText = document.createElement('b');
+            newPositionText.textContent = tbody.children.length + 1;
+            newPositionText.name = 'Specifications[' + (row_id) + '].Position';
+            newPositionText.id = 'pos_text_' + (row_id);
+            newPositionCell.appendChild(newPositionText);
+
+            var newPositionInputText = document.createElement('input');
+            newPositionInputText.type = 'text';
+            newPositionInputText.classList.add('form-control');
+            newPositionInputText.classList.add('hidden');
+
+            newPositionInputText.name = 'Specifications[' + (row_id) + '].Position';
+            newPositionInputText.id = 'position_'+(row_id);
+            newPositionInputText.value = (row_id+1);
+
+            newPositionCell.appendChild(newPositionInputText);
+
+            var model_specifications = @Html.Raw(jsonSpecifications);
+            var length = Object.keys(model_specifications).length;
+     
+            // Create a new type cell
+            var newTypeCell = document.createElement('td');
+            var newTypeSelect = document.createElement('select');
+            newTypeSelect.classList.add('form-control');
+            newTypeSelect.name = 'Specifications[' + (row_id) + '].Selected_HTML_SpecificationTypeId';
+            newTypeSelect.id = 'type_' + (row_id);
+            newTypeCell.appendChild(newTypeSelect);
+
+           
+            var options = @Html.Raw(jsonOptions);
+            for (var i = 0; i < options.length; i++) {
+                var newOption = document.createElement('option');
+                newOption.value = options[i].Id;
+                newOption.textContent = options[i].Type;
+                newTypeSelect.appendChild(newOption);
+            }
+                   
+            // Create a new name cell
+            var newNameCell = document.createElement('td');
+            var newNameInput = document.createElement('input');
+            newNameInput.type = 'text';
+            newNameInput.classList.add('form-control');
+            newNameInput.name = 'Specifications[' + (row_id) + '].Name';
+            newNameInput.id = 'name_' + (row_id);
+            newNameCell.appendChild(newNameInput);
+
+            // Create a new description cell
+            var newDescriptionCell = document.createElement('td');
+            var newDescriptionInput = document.createElement('textarea');
+            newDescriptionInput.type = 'textarea';
+            newDescriptionInput.classList.add('form-control');
+            newDescriptionInput.name = 'Specifications[' + (row_id) + '].Description';
+            newDescriptionInput.id = 'description_' + (row_id);
+            newDescriptionCell.appendChild(newDescriptionInput);
+
+            // Create a new dynamic replacement text cell
+            var newDynamicReplacementTextCell = document.createElement('td');
+            var newDynamicReplacementTextInput = document.createElement('input');
+            newDynamicReplacementTextInput.type = 'text';
+            newDynamicReplacementTextInput.classList.add('form-control');
+            newDynamicReplacementTextInput.name = 'Specifications[' + (row_id) + '].Dynamic_Replace_Text';
+            newDynamicReplacementTextInput.id = 'dynamic_replace_text_' + (row_id);
+            newDynamicReplacementTextCell.appendChild(newDynamicReplacementTextInput);
+
+            // Create a new action cell
+            var newActionCell = document.createElement('td');
+            newActionCell.style.textAlign = "center";
+  
+            var newMoveUpButton = document.createElement('button');
+            newMoveUpButton.type = 'button';
+            newMoveUpButton.classList.add('btn', 'btn-default', 'btn-sm', 'move-up');
+            var newMoveUpIcon = document.createElement('i');
+            newMoveUpIcon.classList.add('fa', 'fa-arrow-up');
+            newMoveUpButton.appendChild(newMoveUpIcon);
+            newActionCell.appendChild(newMoveUpButton);
+            var newMoveDownButton = document.createElement('button');
+            newMoveDownButton.type = 'button';
+            newMoveDownButton.classList.add('btn', 'btn-default', 'btn-sm', 'move-down');
+            var newMoveDownIcon = document.createElement('i');
+            newMoveDownIcon.classList.add('fa', 'fa-arrow-down');
+            newMoveDownButton.appendChild(newMoveDownIcon);
+            newActionCell.appendChild(newMoveDownButton);
+
+            var trashButton = document.createElement('button');
+            trashButton.type = "button";
+            trashButton.classList.add("btn", "btn-danger", "btn-sm");
+            var trashIcon = document.createElement('i');
+            trashIcon.classList.add("fa", "fa-trash");
+            trashButton.appendChild(trashIcon);
+            trashButton.addEventListener("click", function () {
+                deleteSpecification(-1,row_id);
+            }); 
+            
+            newActionCell.appendChild(trashButton);
+
+            // Add the new cells to the new row
+            newRow.appendChild(newPositionCell);
+            newRow.appendChild(newTypeCell);
+            newRow.appendChild(newNameCell);
+            newRow.appendChild(newDescriptionCell);
+            newRow.appendChild(newDynamicReplacementTextCell);
+            newRow.appendChild(newActionCell);
+
+            // Add the new row to the table
+            tbody.appendChild(newRow);
+        }
+       
+        function deleteSpecification(spec_id, row){
+
+                if (spec_id != -1){
+                    $.ajax({
+                        url: '/Task/DeleteSpecification',
+                        type: 'POST',
+                        data: { id: spec_id },
+                        success: function (data) {
+                            console.log("success");
+
+                            var table = $('#spec_table').DataTable();
+                            table.row(row).remove().draw();
+                            rowToDelete = '';
+                        },
+                        error: function (data, success, failure) {
+                            alert("Error:" + failure);
+                        }
+                    });
+                }else{
+                    var table = document.getElementById("spec_table");
+
+                    console.log(row);
+                    table.deleteRow(row+1);
+
+                
+                }
+            
+            }
+
+        function moveUp(button) {
+            var row = button.parentNode.parentNode;
+            //console.log("Current Row: ", row);
+
+            var table = row.parentNode;
+            //console.log("Table: ", table);
+            var currentIndex = Array.prototype.indexOf.call(table.rows, row);
+            //console.log("Current Row Index: ", currentIndex);
+
+            if (currentIndex > 0) {
+                var previousRow = table.rows[currentIndex - 1];
+                //console.log("Previous Row: ", previousRow);
+
+                var currentType = row.cells[1].querySelector("select option:checked").value;
+                var currentName = row.cells[2].querySelector('input[type=text]:not(.hidden)').value;
+                var currentDescription = row.cells[3].querySelector("textarea").value;
+                var currentDynamicReplaceText = row.cells[4].querySelector('input[type=text]:not(.hidden)').value;
+
+                var previousType = previousRow.cells[1].querySelector("select option:checked").value;
+                var previousName = previousRow.cells[2].querySelector('input[type=text]:not(.hidden)').value;
+                var previousDescription = previousRow.cells[3].querySelector("textarea").value;
+                var previousDynamicReplaceText = previousRow.cells[4].querySelector('input[type=text]:not(.hidden)').value;
+
+                row.cells[1].querySelector("select").value = previousType;
+                row.cells[2].querySelector('input[type=text]:not(.hidden)').value = previousName;
+                row.cells[3].querySelector("textarea").value = previousDescription;
+                row.cells[4].querySelector('input[type=text]:not(.hidden)').value = previousDynamicReplaceText;
+
+                previousRow.cells[1].querySelector("select").value = currentType;
+                previousRow.cells[2].querySelector('input[type=text]:not(.hidden)').value = currentName;
+                previousRow.cells[3].querySelector("textarea").value = currentDescription;
+                previousRow.cells[4].querySelector('input[type=text]:not(.hidden)').value = currentDynamicReplaceText;
+
+            }
+        }
+
+        function moveDown(button) {
+
+            var row = button.parentNode.parentNode;
+            //console.log("Current Row: ", row);
+
+            var table = row.parentNode;
+            //console.log("Table: ", table);
+            var currentIndex = Array.prototype.indexOf.call(table.rows, row);
+            //console.log("Current Row Index: ", currentIndex);
+
+            if (currentIndex < table.rows.length - 1) {
+
+                var nextRow = table.rows[currentIndex + 1];
+                //console.log("Next Row: ", nextRow);
+
+                var currentType = row.cells[1].querySelector("select option:checked").value;
+                var currentName = row.cells[2].querySelector('input[type=text]:not(.hidden)').value;
+                var currentDescription = row.cells[3].querySelector("textarea").value;
+
+                var currentDynamicReplaceText = row.cells[4].querySelector('input[type=text]:not(.hidden)').value;
+             
+                var nextType = nextRow.cells[1].querySelector("select option:checked").value;
+                var nextName = nextRow.cells[2].querySelector('input[type=text]:not(.hidden)').value;
+                var nextDescription = nextRow.cells[3].querySelector("textarea").value
+                var nextDynamicReplaceText = nextRow.cells[4].querySelector('input[type=text]:not(.hidden)').value;
+
+                row.cells[1].querySelector("select").value = nextType;
+                row.cells[2].querySelector('input[type=text]:not(.hidden)').value = nextName;
+                row.cells[3].querySelector("textarea").value = nextDescription;
+                row.cells[4].querySelector('input[type=text]:not(.hidden)').value = nextDynamicReplaceText;
+
+                nextRow.cells[1].querySelector("select").value = currentType;
+                nextRow.cells[2].querySelector('input[type=text]:not(.hidden)').value = currentName;
+                nextRow.cells[3].querySelector("textarea").value = currentDescription;
+                nextRow.cells[4].querySelector('input[type=text]:not(.hidden)').value = currentDynamicReplaceText;
+            }
+        }
+    
+</script>
+
+}
+
+
+            
+      

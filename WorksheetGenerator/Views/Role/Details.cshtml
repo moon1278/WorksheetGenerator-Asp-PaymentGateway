@@ -1,0 +1,130 @@
+﻿@model WorksheetGenerator.Models.Role.DetailsRoleViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+
+            <!-- Worksheet Details -->
+            <div id="Delete-Main-Card" class="col-md-8">
+
+                <div class="card card-xpand-primary">
+                    <div class="card-header" style="padding: .35rem 0.75rem;">
+                        <h4 class="xpand-white">Details</h4>
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <dl class="row">
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.Id)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Id)
+                                </dd>
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Name)
+                                </dd>
+                            </dl>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div id="Delete-Util-Card" class="col-md-4">
+
+                <div class="card">
+                    <div class="card-body">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="row">
+                            <a id="mainContent" style="height:40px;width:140px" asp-action="Index" class="btn btn-block btn-secondary btn-flat">Back to List</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="Delete-SubTasks-Card" class="col-md-12">
+
+                <div class="card card-xpand-primary">
+                    <div class="card-header" style="padding: .35rem 0.75rem;">
+                        <h4 class="xpand-white">User</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <a asp-action="AddUser" asp-controller="Role" asp-route-id="@Model.Id" class="btn btn-block btn-primary btn-flat">User hinzufügen</a>
+
+                                @if (Model.UsersInRole.Count() == 0)
+                                {
+                                    <p class="xpand-secondary">Keine User in dieser Rolle vorhanden.</p>
+                                }
+                                else
+                                {
+
+                                    <table id="DeletTable-TaskType" class="table" width="100%" data-toggle="table">
+                                        <thead>
+                                            <tr>
+                                                <th data-field="@Html.DisplayNameFor(model => model.UsersInRole[0].Id)">
+                                                    @Html.DisplayNameFor(model => model.UsersInRole[0].Id)
+                                                </th>
+                                                <th data-field="@Html.DisplayNameFor(model => model.UsersInRole[0].Email)">
+                                                    @Html.DisplayNameFor(model => model.UsersInRole[0].Email)
+                                                </th>
+                                                <th data-field="@Html.DisplayNameFor(model => model.UsersInRole[0].UserName)">
+                                                    @Html.DisplayNameFor(model => model.UsersInRole[0].UserName)
+                                                </th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var i in Model.UsersInRole)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => i.Id)
+                                                    </td>
+                                                    <td>
+                                                        <a href="@Url.Action("Details", "User", new {id = i.Id})">
+                                                            @Html.DisplayFor(modelItem => i.Email)
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => i.UserName)
+                                                    </td>
+
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <br />
+
+                                }
+
+                            </div>
+                        </div>
+                        <br />
+
+                    </div>
+                </div>
+            </div>
+            <!-- Preview box -->
+
+        </div>
+    </section>
+</div>

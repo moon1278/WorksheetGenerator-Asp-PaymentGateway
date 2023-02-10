@@ -1,0 +1,11 @@
+﻿Add-migration ""
+update-database
+
+
+
+
+
+
+
+//Scaffold-DbContext "Data Source=.\HANISQLSERVER;Initial Catalog=dbworksheet;Persist Security Info=True;User ID=SA;Password=Darkmaster13" -Provider Microsoft.EntityFrameworkCore.SqlServer  -OutputDir "C:\Users\hanih\source\repos\hhussein97\WorksheetGenerator\WorksheetGenerator\WorksheetGenerator\Data\" -Force
+

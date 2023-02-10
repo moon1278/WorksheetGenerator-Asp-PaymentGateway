@@ -1,0 +1,167 @@
+﻿@model WorksheetGenerator.Models.Admin.DashboardViewModel 
+@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+<div class="content-wrapper" style="min-height: 440px;">
+   <div class="content-header">
+      <div class="container-fluid">
+         <div class="row mb-2">
+            <div class="col-sm-6">
+               <h1 class="m-0">Dashboard</h1>
+            </div>
+         </div>
+      </div>
+   </div>
+   <section class="content">
+      <div class="container-fluid">
+         <div class="row">
+            <div class="col-lg-3 col-6">
+               <div class="small-box bg-info">
+                  <div class="inner">
+                     <h3>@Model.WorksheetCount</h3>
+                     <p>Anzahl erstellter Arbeitsblätter</p>
+                  </div>
+                  <div class="icon"><i class="fa-solid fa-file-circle-plus"> </i></div>
+                  <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+               </div>
+            </div>
+            <div class="col-lg-3 col-6">
+               <div class="small-box bg-success">
+                  <div class="inner">
+                     <h3>@Model.TaskCount</h3>
+                     <p>Unterstütze Aufgaben</p>
+                  </div>
+                  <div class="icon">
+                     <i class="material-icons">
+                     menu_book
+                     </i>
+                  </div>
+                  <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+               </div>
+            </div>
+            <div class="col-lg-3 col-6">
+               <div class="small-box bg-warning">
+                  <div class="inner">
+                     <h3>@Model.UserCount</h3>
+                     <p>Anzahl Nutzer</p>
+                  </div>
+                  <div class="icon">
+                     <i class="material-icons">
+                     group
+                     </i>
+                  </div>
+                  <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+               </div>
+            </div>
+            <div class="col-lg-3 col-6">
+               <div class="small-box bg-danger">
+                  <div class="inner">
+                     <h3>0</h3>
+                     <p>Besucher heute</p>
+                  </div>
+                  <div class="icon">
+                     <i class="material-icons">
+                     visibility
+                     </i>
+                  </div>
+                  <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+               </div>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-lg-6 col-6">
+               <div class="card">
+                  <div class="card-header">
+                     <h3 class="card-title">Zuletzt erstelle Arbeitsblätter</h3>
+                  </div>
+                  <div class="card-body">
+                     <div class="row">
+                        <div class="col-md-12">
+                           <div class="panel panel-primary list-panel" id="list-panel">
+                              <div class="panel-heading list-panel-heading">
+                              </div>
+                              <div class="panel-body">
+                                 <table id="assets-data-table" class="table table-striped table-bordered" style="width:100%">
+                                    <thead>
+                                       <tr>
+                                          <th>Arbeitsblatt Name</th>
+                                          <th>User Id</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       @foreach (var asset in Model.Worksheets) {
+                                       <tr>
+                                          <td>@asset.Name</td>
+                                          <td>@asset.UserId</td>
+                                       </tr>
+                                       }
+                                    </tbody>
+                                 </table>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+       
+            <div class="col-lg-6 col-6">
+               <div class="card">
+                  <div class="card-header">
+                     <h3 class="card-title">Zuletzt registriere User</h3>
+                  </div>
+                  <div class="card-body">
+                     <div class="row">
+                        <div class="col-md-12">
+                           <div class="panel panel-primary list-panel" id="list-panel">
+                              <div class="panel-heading list-panel-heading">
+                              </div>
+                              <div class="panel-body">
+                                 <table id="last-user-data-table" class="table table-striped table-bordered" style="width:100%">
+                                    <thead>
+                                       <tr>
+                                          <th>Email</th>
+                                          <th>User Id</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       
+                                       @foreach (var asset in Model.Users) {
+                                       <tr>
+                                          <td>@asset.Email</td>
+                                          <td>@asset.Id</td>
+                                       </tr>
+                                       }
+                                       
+                                    </tbody>
+                                 </table>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+</div>
+@section scripts{
+<script type="text/javascript">
+   $(document).ready(function () {
+   
+   	$('#assets-data-table').dataTable({
+   		"bPaginate": false, //Seiten zahl
+   		"bLengthChange": true, //ka was das ist
+   		"bFilter": false, //search bar
+   		"bInfo": false, //Text unten das zeigt wv items gerade geziegt werden
+   		"bAutoWidth": true });
+   
+    $('#last-user-data-table').dataTable({
+   		"bPaginate": false, //Seiten zahl
+   		"bLengthChange": true, //ka was das ist
+   		"bFilter": false, //search bar
+   		"bInfo": false, //Text unten das zeigt wv items gerade geziegt werden
+   		"bAutoWidth": true });
+   
+   });
+</script>
+}

@@ -1,0 +1,184 @@
+﻿@model WorksheetGenerator.Models.User.UserDetailsViewModel
+@using Microsoft.AspNetCore.Identity;
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+			</div>
+		</div>
+		<!-- /.container-fluid -->
+	</section>
+	<!-- Main content -->
+	<section class="content">
+		<div class="row">
+            
+            <div class="col-md-3">
+               <div class="card card-primary card-outline">
+                  <div class="card-body box-profile">
+             
+                     <h3 class="text-center">@Model.UserName</h3>
+                     <p class="text-muted text-center">@Model.Id</p>
+                     <ul class="list-group list-group-unbordered mb-3">
+                        <li class="list-group-item">
+                           <b>E-Mail</b> <a class="float-right">@Model.Email</a>
+                        </li>
+                        <li class="list-group-item">
+                           <b>UserName</b> <a class="float-right">@Model.UserName</a>
+                        </li>
+                        <li class="list-group-item">
+                           <b>Last Login</b> <a class="float-right">22.11.2022 16:00</a>
+                        </li>
+                     </ul>
+                     <a href="#" class="btn btn-primary btn-block"><strong><i class="fas fa-pencil-alt mr-1"></i> Edit</strong></a>
+                  </div>
+               </div>
+            </div>
+           
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header p-2">
+                        <ul class="nav nav-pills">
+                        <li class="nav-item"><a class="nav-link active" href="#details" data-toggle="tab">Details</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#roles" data-toggle="tab">Rollen</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#logins" data-toggle="tab">Logins</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#worksheets" data-toggle="tab">Arbeitsblätter</a></li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="details">
+                            
+                                <strong><i class="fas fa-id-card-clip mr-1"></i> Id</strong>
+                                <p class="text-muted">
+                                    @Model.Id
+                                </p>
+                                <hr>
+
+                              
+                                <strong><i class="fas fa-stop mr-1"></i> Normalized UserName</strong>
+                                <p class="text-muted">@Model.NormalizedUserName</p>
+                                <hr>
+
+                                 <div class ="row"> 
+                                    <div class ="col-md-8">
+                                        <strong><i class="fas fa-envelope mr-1"></i> Email</strong>
+                                        <p class="text-muted">@Model.Email</p>
+                                        <hr>
+                                    </div>
+                                    <div class ="col-md-4">
+                                         <strong><i class="fas fa-clipboard-check mr-1"></i> Email Confirmed</strong>
+                                        <p class="text-muted">@Model.EmailConfirmed</p>
+                                        <hr>
+                                    </div>
+                                </div>
+
+                                <div class ="row"> 
+                                    <div class ="col-md-8">
+                                        <strong><i class="fas fa-mobile-alt mr-1"></i> PhoneNumber</strong>
+                                        @if(Model.PhoneNumber == null || Model.PhoneNumber == "" || Model.PhoneNumber.Equals(""))
+                                        {
+                                            <p class="text-muted">Keine Telefonnummer hinterlegt</p>
+
+                                        }
+                                        else
+                                        {
+                                            <p class="text-muted">@Model.PhoneNumber</p>
+                                        }
+                                        <hr>
+                                    </div>
+                                    <div class ="col-md-4">
+                                        <strong><i class="fas fa-clipboard-check mr-1"></i> PhoneNumberConfirmed</strong>
+                                        <p class="text-muted">@Model.PhoneNumberConfirmed</p>
+                                        <hr>
+                                    </div>
+                                </div>
+
+                                <div class ="row"> 
+                                    <div class ="col-md-4">
+                                        <strong><i class="fas fa-lock mr-1"></i> LockoutEnabled</strong>
+                                        <p class="text-muted">@Model.LockoutEnabled</p>
+                                        <hr>
+
+                                    </div>
+                                    <div class ="col-md-4">  
+                                        <strong><i class="fas fa-unlock-alt mr-1"></i> LockoutEnd</strong>
+                                        <p class="text-muted">@Model.LockoutEnd</p>
+                                        <hr>
+                                    </div>
+                                     <div class ="col-md-4">  
+                                        <strong><i class="fas fa-exclamation-triangle mr-1"></i> AccessFailedCount</strong>
+                                        <p class="text-muted">@Model.AccessFailedCount</p>
+                                        <hr>
+                                    </div>
+                                </div>
+
+                             
+
+                                <strong><i class="fas fa-sms mr-1"></i> TwoFactorEnabled</strong>
+                                <p class="text-muted">@Model.TwoFactorEnabled</p>
+                                <hr>                                                  
+                            </div>
+
+                            <div class="tab-pane" id="roles">
+                                
+                                @if(Model.Roles == null || Model.Roles.Count == 0)
+                                {
+                                    <p>Keine Rollen vorhanden.</p>
+                                }else{
+                                  <table class="table">
+                                   <thead>
+                                      <tr>
+                                         <th>Rolle</th>
+                                         <th></th>
+                                      </tr>
+                                   </thead>
+                                   <tbody>
+                                        @foreach(IdentityRole role in Model.Roles)
+                                        {
+                                            <tr>
+                                                <td>@role.Name</td>
+                                                <td class="text-right py-0 align-middle">
+                                                    <div class="btn-group btn-group-sm">
+                                                        <a class="btn btn-info" asp-controller="Role" asp-action="Details" asp-route-id="@role.Id"><i class="fas fa-eye"></i></a>
+                                                        <form asp-controller="Role" asp-action="RemoveUser" asp-route-userId="@Model.Id" asp-route-roleName="@role.Name">
+                                                            <button class="btn btn-danger" type="submit"><i class="fas fa-trash"></i></button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            </tr> 
+                                        }
+                                        
+          
+                                   </tbody>
+                                </table>
+                                }
+                              
+
+                                                                
+                            </div>
+                            <div class="tab-pane" id="logins">
+                           
+                            </div>
+                            <div class="tab-pane active" id="worksheets">
+                          
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+									
+			<!-- Preview box -->
+
+		</div>
+	</section>
+</div>
+
+

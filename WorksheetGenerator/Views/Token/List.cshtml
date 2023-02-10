@@ -1,0 +1,76 @@
+﻿@model IEnumerable<WorksheetGenerator.Models.Token.TokenViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+            </div>
+        </div>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div id="Main-Card" class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <table id="TaskTable" class="table" width="100%" data-toggle="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CreditAmount)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.PayAmount)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.OrderId)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.PaymentId)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.PaymentToken)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreditAmount)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PayAmount)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.OrderId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PaymentId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PaymentToken)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Preview box -->
+        </div>
+    </section>
+</div>

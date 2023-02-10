@@ -1,0 +1,141 @@
+﻿@model WorksheetGenerator.Models.Task.DetailsTaskModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    
+<div class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+			</div>
+		</div>
+		<!-- /.container-fluid -->
+	</section>
+	<!-- Main content -->
+	<section class="content">
+		<div class="row">
+			<!-- Worksheet Details -->
+			<div id="Main-Card" class="col-md-12">
+				<div class="card">
+					<div class="card-body">
+        
+                        <p>
+                            <a class="btn btn-xpand-primary btn-flat" asp-action="Create">Create New</a>
+                        </p>
+                        <table id="TaskTable" class="table" width="100%" data-toggle="table">
+                            <thead>
+                                <tr>
+                                    <th data-field="@Html.DisplayNameFor(model => model.DetailsTaskModels[0].Id)">
+                                        @Html.DisplayNameFor(model => model.DetailsTaskModels[0].Id)
+                                    </th>
+                                    <th data-field="@Html.DisplayNameFor(model => model.DetailsTaskModels[0].Name)">
+                                        @Html.DisplayNameFor(model => model.DetailsTaskModels[0].Name)
+                                    </th>
+                                    <th data-field="@Html.DisplayNameFor(model => model.DetailsTaskModels[0].Description)">
+                                        @Html.DisplayNameFor(model => model.DetailsTaskModels[0].Description)
+                                    </th>
+                                    <th data-field="@Html.DisplayNameFor(model => model.DetailsTaskModels[0].SubTaskType)">
+                                        @Html.DisplayNameFor(model => model.DetailsTaskModels[0].SubTaskType)
+                                    </th>
+                                    <th data-field="@Html.DisplayNameFor(model => model.DetailsTaskModels[0].Query)" width="20%" data-formatter="shortingText">
+                                        @Html.DisplayNameFor(model => model.DetailsTaskModels[0].Query)
+                                    </th>
+                                    <th data-field="@Html.DisplayNameFor(model => model.DetailsTaskModels[0].Activated)">
+                                        @Html.DisplayNameFor(model => model.DetailsTaskModels[0].Activated)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                        @foreach (var item in Model.DetailsTaskModels) {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Description)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SubTaskType)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Query)
+                                    </td>
+                                    <td>
+                                        @item.Activated
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                    </td>
+                                </tr>
+                        }
+                            </tbody>
+                        </table>
+
+					</div>
+				</div>
+			</div>
+									
+			<!-- Preview box -->
+
+		</div>
+	</section>
+</div>
+
+<input type="hidden" id="QueryColumName" value="@Html.DisplayNameFor(model => model.DetailsTaskModels[0].Query)"/>
+
+<div class="modal fade" id="modal-query">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 id="modal-title" class="modal-title">Query</h4>
+
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p id="modal-body"></p>
+			</div>
+			<div class="modal-footer justify-content-between">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts{
+    <script>
+
+       
+				
+
+        @Html.Raw(@Model.JavascriptToRun)
+
+        function ShowSuccessMessage(text) {       
+            
+                toastr.success(text)
+            
+        };
+
+
+        $("#TaskTable").on("click-cell.bs.table", function (field, value, row, $el) {
+            
+            if (value == document.getElementById('QueryColumName').value){
+                $('#modal-query').modal('show');
+
+		        $('#modal-body').text($el.Query);
+
+            }
+         });
+    </script>
+}

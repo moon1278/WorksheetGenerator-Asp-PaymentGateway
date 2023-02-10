@@ -1,0 +1,11 @@
+﻿.dataTable > thead > tr > th[class*="sort"]:before,
+.dataTable > thead > tr > th[class*="sort"]:after {
+    content: "" !important;
+}
+
+.dataTable tbody tr:hover {
+    background-color: #ffa;
+}
+.dataTable tbody tr:hover > .sorting_1 {
+        background-color: #ffa;
+    }

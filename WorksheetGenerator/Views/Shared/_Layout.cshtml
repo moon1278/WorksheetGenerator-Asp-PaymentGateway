@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Xpand - @ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" asp-append-version="true" />
+    <link rel="stylesheet" href="~/plugins/fontawesome-free/css/all.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/dist/css/adminlte.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/dist/css/adminlte.css" asp-append-version="true" />
+
+
+    <link rel="stylesheet" href="~/dist/css/loaderAnimation.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/dist/css/googleicon.css" asp-append-version="true" />
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+    <link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/dist/css/datatable.css" asp-append-version="true" />
+
+    <!-- Toastr -->
+    <link rel="stylesheet" href="~/plugins/toastr/toastr.min.css">
+    <link href="https://unpkg.com/bootstrap-table@1.20.2/dist/bootstrap-table.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/dist/css/xpand.css" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin&family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+
+        <!-- jQuery -->
+    <script src="~/plugins/jquery/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.4/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.min.js" type="text/javascript"></script>
+
+</head>
+<body class="hold-transition sidebar-mini">
+    <!-- Site wrapper -->
+    <div class="wrapper">
+        @Html.Partial("_Topbar")
+        @RenderBody()
+        @Html.Partial("_Footbar")
+        @Html.Partial("_Sidebar")
+    </div>
+    <!-- ./wrapper -->
+
+    <div class="loader-wrapper">
+        <span class="loader"><span class="loader-inner"></span></span>
+    </div>
+
+
+    <!-- Bootstrap 4 -->
+    <script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/dist/js/adminlte.min.js"></script>
+    <script src="https://kit.fontawesome.com/75d1d56ed7.js" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
+    <script src="https://unpkg.com/bootstrap-table@1.20.2/dist/bootstrap-table.min.js"></script>
+
+    <!-- Toastr -->
+    <script src="~/plugins/toastr/toastr.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        $(window).on("load", function () {
+            $(".loader-wrapper").fadeOut("slow");
+        });
+    </script>
+
+    <script>
+
+        function shortingText(value) {
+
+            if (value.length <= 30) {
+                return value;
+            }
+
+            return value.substring(0, 30) + '...';
+
+        }
+
+
+
+    </script>
+
+
+    <script>
+        function downloadWorksheet(worksheetId) {
+
+            /*
+            $.ajax({
+                url: '/Worksheet/DownloadWorksheet',
+                type: "GET",
+                data: {obj: worksheetId},
+                success: function(data) {
+
+                    alert(data);
+                    window.location = '/Worksheet/Download?file=' + data;
+                },
+                error: function(){
+                    console.error('error');
+
+                }
+            });
+                */
+
+            location.href = '@Url.Action("DownloadWorksheet", "Worksheet", new { obj = "js-id" })'.replace("js-id", encodeURIComponent(worksheetId));
+
+        }
+
+        function downloadSolution(worksheetId) {
+
+            /*
+            $.ajax({
+                url: '/Worksheet/DownloadWorksheet',
+                type: "GET",
+                data: {obj: worksheetId},
+                success: function(data) {
+
+                    alert(data);
+                    window.location = '/Worksheet/Download?file=' + data;
+                },
+                error: function(){
+                    console.error('error');
+
+                }
+            });
+                */
+
+            location.href = '@Url.Action("DownloadSolution", "Worksheet", new { obj = "js-id" })'.replace("js-id", encodeURIComponent(worksheetId));
+
+        }
+    </script>
+</body>
+</html>

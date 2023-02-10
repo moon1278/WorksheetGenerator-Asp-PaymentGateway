@@ -1,0 +1,663 @@
+﻿@model WorksheetGenerator.Models.WorksheetModels.CreateWorksheetViewModel_General
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+			</div>
+		</div>
+		<!-- /.container-fluid -->
+	</section>
+	<!-- Main content -->
+	<section class="content">
+		<div class="row">
+			<!-- Worksheet Details -->
+			<div id="Main-Card" class="col-md-12">
+				<div class="card">
+					<div id="div_main" class="div-main">
+						<div id="General" style="min-height:52rem">                                                   
+							@Html.Partial("_Create_General")
+						</div>
+					</div>
+				</div>
+			</div>
+									
+			<!-- Preview box -->
+@*
+			<div id="Preview-Card" style="display: none;" class="col-md-4">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">                                                   
+							<div class="addition-Items-container">
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>*@
+		</div>
+		<div id="Add-Task-Card" style="display:none;" class="row">
+			<div class="col-md-12">
+					<div class="card">
+						<div class="card-body">
+							<div class="row">                                                   
+								<button class="btn btn-xpand-secondary btn-flat" type="button" id="button_createWorksheet" onclick="createWorksheet()">
+									Weiter
+								</button>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+	</section>
+</div>
+
+<div class="modal fade" id="modal-showTaskInfo">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 id="modal-showTaskInfo-title" class="modal-title">Hilfe Beschreibung - </h4>
+
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p id="modal-showTaskInfo-body"></p>
+			</div>
+			<div class="modal-footer justify-content-between">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+@section scripts {
+
+<script type="text/javascript">
+	var subtasksElements = []; 
+
+	var task_and_specifications = [];
+	var Return_task_and_specifications = [];
+ 
+
+	//event - when tasktype is changed, remove old entrys
+	function onchange_tasktype_changed(taskTypeId){
+		$.ajax({
+			url: '/Worksheet/onTaskTypeSelected',
+			type: 'Get',
+			data: {taskTypeId: taskTypeId },
+			success: function (data) 
+			{ 
+				$('#SelectedSubTaskTypes').empty();
+				data = JSON.parse(data);
+
+				for (var i = 0; i < data.length; i++) {
+
+					var opt = new Option(data[i].Name, data[i].Id);
+					$('#SelectedSubTaskTypes').append(opt);
+				}
+			},
+            error: function (data, success, failure) {
+                    alert("Error:" + failure);
+            }
+		});
+	}
+
+	//opens the modal to show additional task infos
+	function showTaskInfo(taskId){
+		$('#modal-showTaskInfo').modal('show');
+
+		$.ajax({
+			url: '/Worksheet/showTaskInfo',
+			type: "POST",
+			data: {taskId: taskId},
+			success: function(data) {
+				if (data)
+				{
+					$('#modal-showTaskInfo-title').text("Hilfe Beschreibung - "+data.taskName);
+					$('#modal-showTaskInfo-body').text(data.taskDescription);
+				}
+				else{
+					alert('error');
+				}
+			},
+			error: function(){
+				console.error('error');
+				
+			}
+		});
+
+		//Stops the click from going to the next method
+		if (!e) 
+			var e = window.event;
+			e.cancelBubble = true;
+			if (e.stopPropagation) e.stopPropagation();
+	}
+
+	function specifyTask_confirm(){
+		
+		for (var i = 0; i < task_and_specifications.length; i++) 
+		{
+			var temp_id = task_and_specifications[i].unique_html_id;
+
+			//var singleItem_task = "<div id=\"" + temp_id + "\" class=\"single-item-preview\" style=\"background-color: #66cccc; position:relative;\" data-taskid=\"" + task_and_specifications[i].taskId + "\" data-value=\"" + task_and_specifications[i].taskId + "\"> <h4 class=\"task-item\">" + task_and_specifications[i].taskId + "</h4> <span class=\"bottom_left pointer material-icons white\" onclick=removeTask(" + temp_id + ") class=\"\">close</span></div>";
+			var imageDataUri = "data: image/jpeg;base64,"+task_and_specifications[i].previewImage;
+			var singleItem_task = "<div id=\"" + temp_id + "\" class=\"single-item-preview\" style=\"background-color: #66cccc; position:relative;\" data-taskid=\"" + task_and_specifications[i].taskId + "\" data-value=\"" + task_and_specifications[i].taskId + "\"> <img class=\"task-item\" style=\"max-width:300px; max-height:300px\; \" src=\"" + imageDataUri + "\"> </img> <span class=\"bottom_left pointer material-icons white\" onclick=removeTask(" + temp_id + ") class=\"\">close</span></div>";
+
+			$('#Added_Tasks').append(singleItem_task);						
+		}
+
+		for (var i = 0; i < task_and_specifications.length; i++) 
+		{
+			var temp_Specification = [];
+
+			for (var j = 0; j < task_and_specifications[i].specifications.length; j++)
+			{
+				var html_id = task_and_specifications[i].specifications[j].html_element_id;
+
+				var objType = $('#'+html_id).data('type');
+				var taskid = $('#'+html_id).data('taskid');
+
+				switch(objType){
+					case "SelectList": 
+										var select = document.getElementById(task_and_specifications[i].specifications[j].html_element_id);
+										var selectValue = select.options[select.selectedIndex].value;
+
+										var specif = {unique_task_id: task_and_specifications[i].unique_html_id, specificationId: task_and_specifications[i].specifications[j].specificationId, value: selectValue};
+										temp_Specification.push(specif);
+										break;
+					case "Number": 
+									
+										var numberValue = document.getElementById(task_and_specifications[i].specifications[j].html_element_id).value;
+
+										var specif = { unique_task_id: task_and_specifications[i].unique_html_id, specificationId: task_and_specifications[i].specifications[j].specificationId, value: numberValue };
+										temp_Specification.push(specif);
+										break;
+					case "Text": 
+									
+										var textValue = document.getElementById(task_and_specifications[i].specifications[j].html_element_id).value;
+
+										var specif = { unique_task_id: task_and_specifications[i].unique_html_id, specificationId: task_and_specifications[i].specifications[j].specificationId, value: textValue };
+										temp_Specification.push(specif);
+										break;
+				}
+			}
+
+			var task = {taskid: taskid, specifications: temp_Specification };
+
+			Return_task_and_specifications.push(task);
+			
+
+		}
+
+		resetSelection();
+
+	}
+
+	function specifyTask(){
+		
+		var SelectedTasks = [];	
+		var specificationNeeded = true;
+
+		const myNode = document.getElementById("modal-specifyTask-body");
+		myNode.innerHTML = '';
+
+		if(!specificationNeeded){
+			specifyTask_confirm();
+		}
+
+		//Get selected tasks
+		$('.single-item', '.addition-Items-container').each(function() {
+			var taskId = $(this).data('taskid');
+			SelectedTasks.push(taskId);								
+		});
+
+		//Get specification of tasks
+		$.ajax({
+				url: '/Worksheet/GetTaskSpecifications',
+				type: "GET",
+				data: {obj: JSON.stringify(SelectedTasks)},
+				success: function(response) {
+					if (response)
+					{
+						var jsonReturn = JSON.parse(response);
+						for (var i = 0; i < jsonReturn.length; i++) {
+
+							var taskId_htmlId = Date.now();
+							var temp_html_specification_elements = [];
+							
+							var specificationTaskHeader = "<div id=\"specHeader_task_"+taskId_htmlId+"\" class=\"row\"><h3>"+jsonReturn[i].TaskName+"</h3></div>";
+							
+							$('#modal-specifyTask-body').append(specificationTaskHeader);
+							
+
+							for(var j = 0; j < jsonReturn[i].TaskSpecifications.length; j++)
+							{
+								var taskSpec = jsonReturn[i].TaskSpecifications[j];
+
+								var specificationHeader = "<div id=\"specHeader_"+taskId_htmlId+"\" class=\"row\"><b>"+taskSpec.Specification.Name+"</b></div>";
+								var specificationDescription = "<div id=\"specDesc_"+taskId_htmlId+"\" class=\"row\"><p>"+taskSpec.Specification.Description+"</p></div>";
+							
+								$('#modal-specifyTask-body').append(specificationHeader);
+								$('#modal-specifyTask-body').append(specificationDescription);
+
+								switch(taskSpec.HTML_SpecificationType.Type){
+									case "SelectList": 
+														//SelectList
+														var selectList_Id = "selectList_"+taskSpec.Specification.Id+"_"+taskId_htmlId;
+														var specificationSelectList = "<select class=\"form-control\" id=\""+selectList_Id+"\ data-taskid=\""+jsonReturn[i].TaskId+"\" ></select>";
+														$('#modal-specifyTask-body').append(specificationSelectList);
+
+														for (var z = 0; z < taskSpec.Options.length; z++) {
+															$('#'+selectList_Id).append("<option value=\""+taskSpec.Options[z].Id+"\">"+taskSpec.Options[z].Name+"</option>");
+														}
+
+														temp_html_specification_elements.push({html_element_id: selectList_Id, specificationId: taskSpec.Specification.Id});
+
+														$('#'+selectList_Id).data('type', "SelectList");
+										break;
+									case "Number": 
+														//Number
+														var num_Id = "num_"+taskSpec.Specification.Id+"_"+taskId_htmlId;
+
+														var specificationSelectList = "<input class=\"form-control\" id=\""+num_Id+"\" data-taskid=\""+jsonReturn[i].TaskId+"\"></input>";
+														$('#modal-specifyTask-body').append(specificationSelectList);
+
+														temp_html_specification_elements.push({html_element_id: num_Id, specificationId: taskSpec.Specification.Id});
+													
+														$('#'+num_Id).data('type', "Number");
+
+										break;
+									case "Text": 
+													//Text
+													var text_Id = "text_"+taskSpec.Specification.Id+"_"+taskId_htmlId;
+
+													var specificationSelectList = "<input class=\"form-control\" id=\""+text_Id+"\" data-taskid=\""+jsonReturn[i].TaskId+"\"></input>";
+													$('#modal-specifyTask-body').append(specificationSelectList);
+
+													temp_html_specification_elements.push({html_element_id: text_Id, specificationId: taskSpec.Specification.Id});
+													
+													$('#'+text_Id).data('type', "Text");
+
+									break;
+									default: break;
+								}
+							}
+							
+							task_and_specifications.push({unique_html_id: taskId_htmlId, taskId: jsonReturn[i].TaskId, specifications: temp_html_specification_elements, previewImage: jsonReturn[i].PreviewImage});
+						}
+
+					}
+					else{
+						alert('error');
+					}
+				},
+				error: function(){
+					console.error('error');
+					$('#button_addTask').html('Continue');
+					$('#button_addTask').removeClass('disabled');
+				}
+		});
+
+		for (var i = 0; i < SelectedTasks.length; i++) {
+
+			var temp_id = Date.now() + SelectedTasks[i];
+			//var singleItem_task = "<div id=\""+temp_id+"\" class=\"single-item-preview\" style=\"background-color: #66cccc; position:relative;\" data-taskid=\""+SelectedTasks[i]+"\" data-value=\""+SelectedTasks[i]+"\"> <h4 class=\"task-item\">"+SelectedTasks[i]+"</h4> <span class=\"bottom_left pointer material-icons white\" onclick=removeTask("+temp_id+") class=\"\">close</span></div>";								
+			//$('#Added_Tasks').append(singleItem_task);
+			//alert(document.getElementById(temp_id).querySelector("h4").textContent);
+							
+		}
+
+
+
+		//Stops the click from going to the next method
+		if (!e) 
+			var e = window.event;
+			e.cancelBubble = true;
+			if (e.stopPropagation) e.stopPropagation();
+
+		$('#modal-specifyTask').modal('show');
+
+	}
+	
+	function createWorksheet(){
+		
+		if($("#UserForm_Task").valid()) { //check if form is valid using model annotation
+			//('#UserForm_Task').submit
+
+			$('#button_createWorksheet').html('Loading...');
+			$('#button_createWorksheet').addClass('disabled');
+						
+			var SelectedTasks = [];
+
+			//------------------SEND---------------
+			//Build response
+			$('.single-item-preview').each(function() {
+				var taskId = $(this).data('taskid');
+				SelectedTasks.push(taskId);								
+			});
+
+			//console.log(JSON.stringify(SelectedTasks));
+
+			var jsonReturn = "{ 'SelectedTasks': "+JSON.stringify(SelectedTasks)+", 'WorksheetName': '"+document.getElementById("WorksheetName").value+"', 'ClassId': '"+document.getElementById("ClassId").value+"', 'Tasks':"+JSON.stringify(Return_task_and_specifications)+"}";
+			
+			$.ajax({
+				url: '/Worksheet/Task',
+				type: "POST",
+				data: {obj: jsonReturn},
+				success: function(response) {
+					
+						$("#General").html(response);
+						//$('#Main-Card').removeClass('col-md-8').addClass('col-md-12') //Add preview card after general
+						//document.getElementById("Preview-Card").remove();
+						$('#General').addClass('center-all-items') //Add preview card after general
+						$('#Add-Task-Card').addClass('hidden') //Add preview card after general
+
+						//display: flex;align-items: center;justify-content: center;
+					
+					
+			
+				},
+				error: function(xhr, status, error) {
+					console.error(xhr.responseText);
+					$('#button_addTask').html('Continue');
+					$('#button_addTask').removeClass('disabled');
+				}
+			});
+							
+		} else {
+			return false;
+		}
+				
+	}
+	
+
+	function onchange_subtasktype_changed(sel){
+		var opts = [],
+		opt;
+
+		var len = sel.options.length;
+
+		for (var j = 0; j < subtasksElements.length; j++) {
+			document.getElementById(subtasksElements[j]).remove();
+		}
+
+		subtasksElements = []
+
+		for (var i = 0; i < len; i++) {
+			opt = sel.options[i];
+
+			if (opt.selected) {
+				opts.push(opt);
+
+				//alert(opt.value)
+
+				$.ajax({
+					url: '/Worksheet/UpdateSubTaskType',
+					type: 'POST',
+					datatype: 'json',
+					data: {subTaskTypeId: opt.value },
+					success: function (data) 
+					{
+						var subTaskName = data.subTaskTypeName.replace(/\s/g, "");
+						var temp_TaskName = subTaskName.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
+
+						//TODO - Es werden die divs nicht gelöscht von den subtaskname, -> Element untersuchen
+						var div_subTaskName_name = "Div_SubTask_"+data.id;
+
+						//save into array for delete
+						subtasksElements.push(div_subTaskName_name);
+
+						//add subtasktypename div
+						var subtask_header = '<div id="'+div_subTaskName_name+'" class="theme-heading my-2"><h3>Sub Aufgabe – <span>' + data.subTaskTypeName + ' </span></h3></div>';
+		
+						$('#SubTasks').append(subtask_header);
+
+						//add div for tasks
+
+						var div_subtaskname_task_container_name = div_subTaskName_name+"_tasks";
+						var task_div = "<div id=\""+div_subtaskname_task_container_name+"\" class=\"subThemes-items\"></div>";
+						subtasksElements.push(div_subtaskname_task_container_name);	
+
+						$('#SubTasks').append(task_div)
+
+						for (var i = 0; i < data.tasks.length; i++) {
+						
+							var task_id = div_subtaskname_task_container_name+""+data.tasks[i].id;
+							var singleItem_task = "<div id = \""+task_id+"\" class=\"single-item\" style=\"background-color: #"+data.color+"; position:relative;\" onclick=\"singleItemClicked('"+data.tasks[i].id+"','"+data.id+"','"+data.color+"', this)\" data-value=\""+data.tasks[i].id+"\"> <h4 class=\"task-item\">"+data.tasks[i].name+"</h4> <span class=\"bottom_right material-icons white\" onclick=showTaskInfo("+data.tasks[i].id+") class=\"\">help</span></div>";
+							$('#'+div_subtaskname_task_container_name).append(singleItem_task)
+
+						}
+
+					},
+					error: function(xhr, status, error) {
+						alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+					}
+				});
+
+			}
+		}
+	}
+
+	function singleItemClicked(taskId, subtaskId, color, ele)
+	{
+		if(window.getComputedStyle(ele).getPropertyValue('border-width') == "0px"){
+            $(ele).css('border','5px solid red');				
+		}else{
+			$(ele).css('border','none');
+		}
+
+        var flag = false;
+        $('.single-item', '.addition-Items-container').each(function() {
+				
+            if ($(this).data('taskid') == taskId && $(this).find('h4').text() == taskId){
+                flag = true;           
+				$(this).remove();
+
+            }
+        });
+
+
+        if (flag == false) {
+			var singleItem = '<div class="single-item" style="background-color: #' + color + '" data-taskid="' + taskId + '" data-value="' + taskId + '"><h4>' + taskId + '</h4></div>';
+            $('.addition-Items-container').append(singleItem);
+        }
+    }
+
+	function resetSelection(){
+		
+		//Border entfernen, resett der Items
+		$('.single-item').each(function() {
+			$(this).css('border','none');							
+		});
+
+		$('.single-item', '.addition-Items-container').each(function() {										       
+			$(this).remove();						
+		});
+
+		task_and_specifications = [];
+							
+	}
+	function removeTask(htmlId){
+
+		var positionToDelete = 0;
+
+		for(var i = 0; i < Return_task_and_specifications.length; i++){
+				for (var j = 0; j < Return_task_and_specifications[i].specifications.length; j++) {
+					if (Return_task_and_specifications[i].specifications[j].unique_task_id == htmlId) {
+						positionToDelete = i;
+					}
+			}
+		}
+
+			Return_task_and_specifications.splice(positionToDelete, 1);
+
+		$("#"+htmlId).remove();
+	}
+	/*      
+		function Add_Task(){
+		 $.ajax({
+				url: "@Url.Action("Create", "Worksheet")",
+				type: "POST",
+			success: function (result, status, xhr) {""
+				$("#General").html(result);
+				$('#General form').data('validator', null); 
+				$.validator.unobtrusive.parse('#General form');
+              
+			},
+				error: function (xhr, status, error) {
+					//alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+				}
+			});
+		}
+	*/
+
+	$(document).ready(function() {
+		$('#btn_generalSubmit').click(function() {
+			if($("#UserForm_general").valid()) { //check if form is valid using model annotation
+				$('#UserForm_general').submit
+			} else {
+				return false;
+			}
+		});
+
+		$("#UserForm_general").on("submit", function(event) {
+			event.preventDefault();
+			var url = $(this).attr("action");
+			var formData = $(this).serialize();
+			$.ajax({
+				url: "@Url.Action("Create", "Worksheet")",
+				type: "POST",
+				data: formData,
+				success: function(response) {
+					$("#General").html(response);
+					$('#General form').data('validator', null);
+					$.validator.unobtrusive.parse('#General form');
+
+
+					//$('#Main-Card').removeClass('col-md-12').addClass('col-md-8') //Add preview card after general
+					//$("#Preview-Card").removeAttr("style")
+					$('#div_main').removeClass('div-main')
+					$("#Add-Task-Card").removeAttr("style")
+
+
+					//$('#button_addTask').click(function() {
+					//	if($("#UserForm_Task").valid()) { //check if form is valid using model annotation
+					//		//('#UserForm_Task').submit
+			
+					//		var SelectedTasks = [];
+
+					//		//------------------SEND---------------
+					//		//Build response
+					//		$('.single-item', '.addition-Items-container').each(function() {
+					//			var taskId = $(this).data('taskid');
+					//			SelectedTasks.push(taskId);								
+					//		});
+
+
+					//		for (var i = 0; i < SelectedTasks.length; i++) {
+
+					//			var temp_id = Date.now() + SelectedTasks[i];
+
+					//			var singleItem_task = "<div id=\""+temp_id+"\" class=\"single-item-preview\" style=\"background-color: #66cccc; position:relative;\" data-taskid=\""+SelectedTasks[i]+"\" data-value=\""+SelectedTasks[i]+"\"> <h4 class=\"task-item\">"+SelectedTasks[i]+"</h4> <span class=\"bottom_left pointer material-icons white\" onclick=removeTask("+temp_id+") class=\"\">close</span></div>";
+								
+
+					//			$('#Added_Tasks').append(singleItem_task);
+					//			//alert(document.getElementById(temp_id).querySelector("h4").textContent);
+
+					//		}
+
+					//		resetSelection();
+							
+
+					//		//console.log(JSON.stringify(SelectedTasks));
+
+
+					//		/*
+					//		var jsonReturn = "{ 'SelectedTasks': "+JSON.stringify(SelectedTasks)+", 'WorksheetName': '"+document.getElementById("WorksheetName").value+"', 'ClassId': '"+document.getElementById("ClassId").value+"' }";
+							
+					//		$.ajax({
+					//			url: '/Worksheet/Task',
+					//			type: "POST",
+					//			data: {obj: jsonReturn},
+					//			success: function(response) {
+					//				if (response)
+					//				{
+					//					$('#General').addClass('center-all-items') //Add preview card after general
+
+					//					$("#General").html(response);
+					//					//$('#Main-Card').removeClass('col-md-8').addClass('col-md-12') //Add preview card after general
+					//					//document.getElementById("Preview-Card").remove();
+					//					//$('#General').addClass('center-all-items') //Add preview card after general
+
+					//					//display: flex;align-items: center;justify-content: center;
+
+					//					$('#Add-Task-Card').addClass('hidden') //Add preview card after general
+
+					//				}
+					//				else{
+					//					alert('error');
+					//				}
+					//			},
+					//			error: function(){
+					//				console.error('error');
+					//				$('#btnSubmit_Task').html('Continue');
+					//				$('#btnSubmit_Task').removeClass('disabled');
+					//			}
+					//		});m
+					//		*/
+							
+					//	} else {
+					//		return false;
+					//	}
+						
+					//});
+
+					/*
+					$("#UserForm_Task").on("submit", function(event) {
+
+						alert("test")
+						event.preventDefault();
+						var url = $(this).attr("action");
+						var formData = $(this).serialize();
+						$.ajax({
+							url: "@Url.Action("Task", "Worksheet")",
+							type: "POST",
+							async: true,
+							data: formData,
+							success: function(response) {
+								$("#General").html(response);
+								$('#General form').data('validator', null);
+								$.validator.unobtrusive.parse('#General form');
+
+							
+
+							},
+							error: function(xhr, status, error) {
+								alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+							},
+							complete: function() {}
+						})
+					});
+
+					*/
+				},
+				error: function(xhr, status, error) {
+					alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+				},
+				complete: function() {}
+			})
+		});
+	});
+</script>
+
+
+} 

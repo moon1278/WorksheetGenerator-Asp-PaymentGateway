@@ -1,0 +1,142 @@
+﻿@model WorksheetGenerator.Models.TaskType.Helper_DetailsTaskTypeModel.DetailsTaskTypeModel_Element
+@{
+ViewData["Title"] = "Delete";
+Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="content-wrapper">
+   <!-- Content Header (Page header) -->
+   <section class="content-header">
+      <div class="container-fluid">
+         <div class="row mb-2">
+         </div>
+      </div>
+      <!-- /.container-fluid -->
+   </section>
+   <!-- Main content -->
+   <section class="content">
+      <div class="row">
+
+			<!-- Worksheet Details -->
+			<div id="Delete-Main-Card" class="col-md-10">
+            
+				<div class="card">
+                     <div class="card-header">
+                        <h2 class="xpand-secondary">TaskType Details</h2>
+
+                    </div>
+					<div class="card-body">
+						<div>                
+                            <dl class="row">
+                                <dt class = "col-sm-2">
+                                    @Html.DisplayNameFor(model => model.Id)
+                                </dt>
+                                <dd class = "col-sm-10">
+                                    @Html.DisplayFor(model => model.Id)
+                                </dd>
+                                <dt class = "col-sm-2">
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </dt>
+                                <dd class = "col-sm-10">
+                                    @Html.DisplayFor(model => model.Name)
+                                </dd>
+                                <dt class = "col-sm-2">
+                                    @Html.DisplayNameFor(model => model.Description)
+                                </dt>
+                                <dd class = "col-sm-10">
+                                    @Html.DisplayFor(model => model.Description)
+                                </dd>
+                                <dt class = "col-sm-2">
+                                    @Html.DisplayNameFor(model => model.HexColor)
+                                </dt>
+                                <dd class = "col-sm-10">
+                                    @Html.DisplayFor(model => model.HexColor)
+                                </dd>
+                                 <dt class = "col-sm-2">
+                                    @Html.DisplayNameFor(model => model.Subject)
+                                </dt>
+                                <dd class = "col-sm-10">
+                                    @Html.DisplayFor(model => model.Subject)
+                                </dd>
+                                 <a id="sideContent" asp-action="Index" class="btn btn-block btn-secondary btn-flat">Back to List</a>
+
+                            </dl>                 
+                        </div>
+
+					</div>
+				</div>
+			</div>
+
+      
+			          
+            <div id="Delete-SubTasks-Card" class="col-md-12">
+            
+				<div class="card card-xpand-primary">
+                     <div class="card-header" style="padding: .35rem 0.75rem;">
+                        <h4 class="xpand-white">SubTasks</h4>
+                    </div>
+					<div class="card-body">
+						   <div class="row">
+                <div class="col-md-10">
+                    @if(Model.SubTaskTypes.Count() == 0)
+                    {
+                        <p class="xpand-secondary">Keine SubTasks vorhanden.</p>
+                    }
+                    else
+                    {
+                     @foreach (var item in Model.SubTaskTypes) {
+                        <p class="xpand-secondary">@item.Name</p>
+                        <table id="DeletTable-TaskType" class="table" width="100%" data-toggle="table">
+                            <thead>
+                                <tr>
+                                <th data-field="@Html.DisplayNameFor(model => model.Tasks[0].Id)">
+                                    @Html.DisplayNameFor(model => model.Tasks[0].Id)
+                                </th>
+                                <th data-field="@Html.DisplayNameFor(model => model.Tasks[0].Name)">
+                                    @Html.DisplayNameFor(model => model.Tasks[0].Name)
+                                </th>
+                                <th data-field="@Html.DisplayNameFor(model => model.Tasks[0].Description)">
+                                    @Html.DisplayNameFor(model => model.Tasks[0].Description)
+                                </th>
+                                <th data-field="@Html.DisplayNameFor(model => model.Tasks[0].Activated)">
+                                    @Html.DisplayNameFor(model => model.Tasks[0].Activated)
+                                </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var i in item.Tasks) {
+                                <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => i.Id)
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Details", "SubTaskType", new {id = i.Id})"> 
+                                    @Html.DisplayFor(modelItem => i.Name)                                
+                                    </a>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => i.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => i.Activated)
+                                </td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <br />
+                    }               
+                    }
+                    
+                </div>
+                </div>
+                     <br />
+              
+					</div>
+				</div>
+			</div>
+			<!-- Preview box -->
+
+		</div>    
+   </section>
+</div>
+        

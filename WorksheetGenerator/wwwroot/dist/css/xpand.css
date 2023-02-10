@@ -1,0 +1,148 @@
+﻿.xpand-primary {
+    color: #66cccc;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.xpand-secondary {
+    color: #303642;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+h1.xpand-primary {
+    color: #66cccc;
+    font-weight: 700;
+    font-size: 30px;
+}
+
+h1.xpand-secondary {
+    color: #303642;
+    font-weight: 700;
+    font-size: 30px;
+}
+
+h2.xpand-primary {
+    color: #66cccc;
+    font-weight: 700;
+    font-size: 25px;
+}
+
+h2.xpand-secondary {
+    color: #303642;
+    font-weight: 700;
+    font-size: 25px;
+}
+
+h3.xpand-primary {
+    color: #66cccc;
+    font-weight: 700;
+    font-size: 25px;
+}
+
+h3.xpand-secondary {
+    color: #303642;
+    font-weight: 700;
+    font-size: 25px;
+}
+
+h4.xpand-primary {
+    color: #66cccc;
+    font-weight: 300;
+    font-size: 25px;
+}
+
+h4.xpand-secondary {
+    color: #303642;
+    font-weight: 300;
+    font-size: 25px;
+}
+
+h4.xpand-white {
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 25px;
+}
+
+
+#mainContent, #sideContent {
+    float: left;
+    display: inline;
+    width: 49%;
+}
+
+.btn-xpand-primary {
+    background-color: #66cccc;
+    border-radius: 17px;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 11px 48px;
+    text-decoration: none;
+    text-shadow: 0px 0px 0px #2f6627;
+}
+
+    .btn-xpand-primary:hover {
+        background-color: #2ebfb7;
+    }
+
+    .btn-xpand-primary:active {
+        position: relative;
+        top: 1px;
+    }
+
+.btn-xpand-secondary {
+    background-color: #303642;
+    border-radius: 17px;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 11px 48px;
+    text-decoration: none;
+    text-shadow: 0px 0px 0px #565e6e;
+}
+
+    .btn-xpand-secondary:hover {
+        background-color: #565e6e;
+    }
+
+    .btn-xpand-secondary:active {
+        position: relative;
+        top: 1px;
+    }
+
+
+.center-all-items {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.div-main-landingpage {
+    background-image: url('../img/landing_page.svg');
+    min-height: 800px;
+    background-size: cover;
+}
+
+
+.div-main {
+    background-image: url('../img/19202-01.svg');
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
+.pointer {
+    cursor: pointer;
+}

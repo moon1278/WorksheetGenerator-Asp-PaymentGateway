@@ -1,0 +1,66 @@
+﻿@model WorksheetGenerator.Models.WorksheetModels.CreateWorksheetViewModel_General
+ <div class="row">
+<!--<form asp-action="Add_Task_Information" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#test"> -->
+<div class="col-12 col-md-12 col-lg-6 order-2 order-md-1 center-all-items " style="min-height:45rem; padding: 1.25rem;">
+   @*   
+   
+	<form method="post">
+      *@    
+      @using (Html.BeginForm("Create", "Worksheet", FormMethod.Post, new {  id = "UserForm_general", name = "UserForm_general"}))
+      {
+      
+		<div asp-validation-summary="All" class="text-danger"></div>
+		<div class="form-group" style="display: inline-block">
+			<div class="row">
+				<div class="col-6">
+					<label class="xpand-secondary" asp-for="WorksheetName"></label>
+				</div>
+				<div class="col-6">
+					<input asp-for="WorksheetName" class="form-control" style="width: 25em;"/>
+@*					<span asp-validation-for="WorksheetName" class="text-danger"></span>
+*@				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="row">
+				<div class="col-6">
+					<label class="xpand-secondary" asp-for="Classes"></label>
+				</div>
+				<div class="col-6">
+                    @Html.DropDownListFor(model => model.SelectedClass, Model.Classes, "Schulklasse wählen", new {@class = "form-control custom-select rounded-0", style="width: 25em;"})
+@*					<span asp-validation-for="SelectedClass" class="text-danger"></span>
+*@				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="row">
+				<div class="col-6">
+					<label class="xpand-secondary" asp-for="Subjects"></label>
+				</div>
+				<div class="col-6">
+                    @Html.DropDownListFor(model => model.SelectedSubject, Model.Subjects, "Schuhlfach wählen", new {@id="SelectedSubject", @class = "form-control custom-select rounded-0", style="width: 25em;"})           
+@*					<span asp-validation-for="SelectedSubject" class="text-danger"></span>
+*@				</div>
+			</div>
+		</div>
+		<div class="row">
+			<button id="btn_generalSubmit" type="submit" class="btn btn-xpand-secondary btn-flat">Weiter</button>  
+		</div>
+	
+		
+
+      }
+      @*  
+   
+	</form>
+   *@
+	
+	
+</div>
+
+<div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
+    <div class="text-center mt-5 mb-3" >
+        <img style="width: 100%;height: auto;" src="~/dist/img/cartoon_main.svg"/>
+    </div>
+</div>
+</div>

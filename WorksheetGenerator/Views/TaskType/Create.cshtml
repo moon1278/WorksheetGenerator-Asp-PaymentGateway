@@ -1,0 +1,77 @@
+﻿@model WorksheetGenerator.Models.TaskType.CreateTaskTypeModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+    
+<div class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+			</div>
+		</div>
+		<!-- /.container-fluid -->
+	</section>
+	<!-- Main content -->
+	<section class="content">
+		<div class="row">
+			<!-- Worksheet Details -->
+			<div id="Main-Card" class="col-md-12">
+				<div class="card">
+					<div class="card-body">
+                        <h4>TaskType erstellen</h4>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-4">
+                                <form id="form_create_subtasktype" asp-action="Create">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <div class="form-group">
+                                        <label asp-for="Name" class="control-label"></label>
+                                        <input asp-for="Name" class="form-control" />
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Subjects"></label>
+                                        @Html.DropDownListFor(model => model.SelectedSubject, Model.Subjects, "-- Fach wählen --", new {@class = "form-control custom-select rounded-0"})
+                                        <span asp-validation-for="SelectedSubject" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Description" class="control-label"></label>
+                                        <input asp-for="Description" class="form-control" />
+                                        <span asp-validation-for="Description" class="text-danger"></span>
+                                    </div>
+                                     <div class="form-group">
+                                        <label asp-for="HexColor" class="control-label"></label>
+                                        <input asp-for="HexColor" class="form-control" />
+                                        <span asp-validation-for="HexColor" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <input id="button_create_subtasktype" type="submit" value="Create" class="btn btn-xpand-primary btn-flat" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div>
+                            <a asp-action="Index">Back to List</a>
+                        </div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    
+}
